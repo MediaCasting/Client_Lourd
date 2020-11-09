@@ -1,4 +1,5 @@
-﻿using MegaCastingV2.WPF.ViewModel;
+﻿using MegaCastingV2.DBlib;
+using MegaCastingV2.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,24 +22,52 @@ namespace MegaCastingV2.WPF.View
     /// </summary>
     public partial class ViewContratType : UserControl
     {
+        /// <summary>
+        /// Initialise de le composant ainsi que le datacontexte ViewModelViewJobType
+        /// </summary>
         public ViewContratType()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Permet l'ajout d'un type de travail 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageInsert_Click(object sender, RoutedEventArgs e)
         {
-            ((ViewModelContractType)this.DataContext).AddContractType();
+            if (ListBoxContractType.SelectedItem == null)
+            {
+                ((ViewModelContractType)this.DataContext).AddContractType(this.Nom.Text);
+            }
+            else
+            {
+
+                MessageBox.Show("Impossible d'ajouter un type de contrat à partir d'un contrat existant");
+
+            }
         }
 
+        /// <summary>
+        /// Permet la supression d'un type de  travail 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
+            
             ((ViewModelContractType)this.DataContext).DeleteContractType();
         }
 
+        /// <summary>
+        /// Permet la mise à jour d'un type de travail
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
         {
-            ((ViewModelContractType)this.DataContext).UpdateContractType();
+            ((ViewModelContractType)this.DataContext).UpdateContractType(this.Nom.Text);
         }
 
         private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
@@ -46,9 +75,5 @@ namespace MegaCastingV2.WPF.View
             ListBoxContractType.UnselectAll();
         }
 
-        private void Nom_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }

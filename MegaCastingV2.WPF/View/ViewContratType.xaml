@@ -63,7 +63,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="1">
-                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="Nom" Text="{Binding SelectedContractType.Name}" materialDesign:HintAssist.Hint="Nom :" TextChanged="Nom_TextChanged"></TextBox>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="Nom" Text="{Binding SelectedContractType.Name}" materialDesign:HintAssist.Hint="Nom :"></TextBox>
                     </Grid>
                 </Grid>
                 <Grid Grid.Column="3">
