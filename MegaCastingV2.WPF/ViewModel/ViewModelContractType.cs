@@ -6,14 +6,19 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MegaCastingV2.WPF.ViewModel
 {
    
     public class ViewModelContractType : ViewModelBase
     {
-        
+
         #region Attributes
+        private ObservableCollection<Offer> _Offers;
+
+        
+
         /// <summary>
         /// Liste observable des ContractType
         /// </summary>
@@ -44,6 +49,15 @@ namespace MegaCastingV2.WPF.ViewModel
             get { return _SelectedContractType; }
             set { _SelectedContractType = value; }
         }
+
+        /// <summary>
+        /// Obtion ou défini les Offre
+        /// </summary>
+        public ObservableCollection<Offer> Offers
+        {
+            get { return _Offers; }
+            set { _Offers = value; }
+        }
         #endregion
 
 
@@ -54,34 +68,69 @@ namespace MegaCastingV2.WPF.ViewModel
             this.Entities.ContractTypes.ToList();
             this.ContractTypes = this.Entities.ContractTypes.Local;
 
+            this.Entities.Offers.ToList();
+            this.Offers = this.Entities.Offers.Local;
+
         }
 
         #endregion
 
         #region Methods
-        
-
-        public void AddContractType()
+        /// <summary>
+        /// Permet l'ajout d'un type de travail 
+        /// </summary>
+        /// <param name="text">Text saisie</param>
+        public void AddContractType(string text)
         {
-            if (!this.Entities.ContractTypes
-                .Any(type => type.Name == "Nouveau type de contrat")
-                )
+            if (text.Any())
             {
-                ContractType contractType = new ContractType();
-                contractType.Name = "nouveau Type de contrat";
-                this.ContractTypes.Add(contractType);
+                if ( !this.Entities.ContractTypes.Any(type => type.Name == text))
+                {
+                    MessageBoxResult result = MessageBox.Show("Souhaitez-vous confirmer l'ajout", "Ajout d'un type de job", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        ContractType contractType = new ContractType();
+                        contractType.Name = text;
+                        this.ContractTypes.Add(contractType);
 
-                this.UpdateContractType();
-                this.SelectedContractType = contractType;
+                        this.Entities.SaveChanges();
+                        this.SelectedContractType = contractType;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Le contrat existe déjà");
+                }
             }
+            else
+            {
+                MessageBox.Show("Veuillez saisir un Nom");
+            }
+
+
+            
+
         }
+
+
 
         /// <summary>
         /// Sauvegarde les modifications
         /// </summary>
-        public void UpdateContractType()
+        public void UpdateContractType(string text)
         {
-            this.Entities.SaveChanges();
+            if (SelectedContractType != null && !this.Entities.ContractTypes
+                .Any(type => type.Name == text))
+            {
+                ContractType contractType = new ContractType();
+                contractType.Name = text;
+                
+                this.Entities.SaveChanges();
+            }
+            else
+            {
+                MessageBox.Show("Aucune modification efféctuée");
+            }
         }
 
         /// <summary>
@@ -91,11 +140,29 @@ namespace MegaCastingV2.WPF.ViewModel
         {
             //Vérrification si on a le droit de supprimer
 
+            if (SelectedContractType == null)
+            {
+                MessageBox.Show("Vous devez selectionner un Type de Contrat pour le supprimer");
+            }
+            else if (!SelectedContractType.Offers.Any())
+            {
+                MessageBoxResult result = MessageBox.Show("Souhaitez-vous confimer la suppression", "Suppresion d'un Type de Contrat", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
 
-            // Suppression de l'élément
-            this.ContractTypes.Remove(SelectedContractType);
-            this.UpdateContractType();
-        }
+                    // Suppression de l'élément
+                    this.Entities.ContractTypes.Remove(SelectedContractType);
+                    this.Entities.SaveChanges();
+                    this.ContractTypes.Remove(SelectedContractType);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vous ne pouvez pas supprimer car il existe encore au moins une offre lier à un type de contrat");
+            }
+
+        }  
+        
         #endregion
     }
 }
