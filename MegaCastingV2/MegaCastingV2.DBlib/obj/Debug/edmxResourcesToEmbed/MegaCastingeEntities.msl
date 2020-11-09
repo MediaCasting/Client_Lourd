@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MegaCastingModelStoreContainer" CdmEntityContainer="MegaCastingEntities">
+    <EntitySetMapping Name="BroadcastPartners">
+      <EntityTypeMapping TypeName="MegaCastingModel.BroadcastPartner">
+        <MappingFragment StoreEntitySet="BroadcastPartner">
+          <ScalarProperty Name="IdentifierCity" ColumnName="IdentifierCity" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="MegaCastingModel.City">
+        <MappingFragment StoreEntitySet="City">
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContractTypes">
+      <EntityTypeMapping TypeName="MegaCastingModel.ContractType">
+        <MappingFragment StoreEntitySet="ContractType">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DomainJobs">
+      <EntityTypeMapping TypeName="MegaCastingModel.DomainJob">
+        <MappingFragment StoreEntitySet="DomainJob">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="MegaCastingModel.Job">
+        <MappingFragment StoreEntitySet="Job">
+          <ScalarProperty Name="IdentifierDomainJob" ColumnName="IdentifierDomainJob" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Offers">
+      <EntityTypeMapping TypeName="MegaCastingModel.Offer">
+        <MappingFragment StoreEntitySet="Offer">
+          <ScalarProperty Name="IdentifierContractType" ColumnName="IdentifierContractType" />
+          <ScalarProperty Name="IdentifierJob" ColumnName="IdentifierJob" />
+          <ScalarProperty Name="IdentifierProducer" ColumnName="IdentifierProducer" />
+          <ScalarProperty Name="IdentifierCity" ColumnName="IdentifierCity" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="ProfilDescription" ColumnName="ProfilDescription" />
+          <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+          <ScalarProperty Name="PostCount" ColumnName="PostCount" />
+          <ScalarProperty Name="StartContractDate" ColumnName="StartContractDate" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="PublishDateTime" ColumnName="PublishDateTime" />
+          <ScalarProperty Name="Reference" ColumnName="Reference" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Packs">
+      <EntityTypeMapping TypeName="MegaCastingModel.Pack">
+        <MappingFragment StoreEntitySet="Pack">
+          <ScalarProperty Name="OfferNumber" ColumnName="OfferNumber" />
+          <ScalarProperty Name="Prix" ColumnName="Prix" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producers">
+      <EntityTypeMapping TypeName="MegaCastingModel.Producer">
+        <MappingFragment StoreEntitySet="Producer">
+          <ScalarProperty Name="IdentifierPack" ColumnName="IdentifierPack" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MegaCastingModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="IdentifierCity" ColumnName="IdentifierCity" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserOffers">
+      <EntityTypeMapping TypeName="MegaCastingModel.UserOffer">
+        <MappingFragment StoreEntitySet="UserOffer">
+          <ScalarProperty Name="IdentifierOffer" ColumnName="IdentifierOffer" />
+          <ScalarProperty Name="IdentifierUser" ColumnName="IdentifierUser" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MegaCastingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BroadcastPartner">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastName" Type="nchar" MaxLength="50" />
+    <Property Name="FirstName" Type="nchar" MaxLength="50" />
+    <Property Name="Phone" Type="int" />
+    <Property Name="Email" Type="nchar" MaxLength="50" />
+    <Property Name="Street" Type="nchar" MaxLength="70" />
+    <Property Name="ZipCode" Type="int" />
+    <Property Name="City" Type="nchar" MaxLength="50" />
+    <Property Name="CV" Type="nchar" MaxLength="10" />
+    <Property Name="Description" Type="nchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ContractType">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdentifierJobType" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobType">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Offer">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Reference" Type="nvarchar" MaxLength="50" />
+    <Property Name="IdentifierJob" Type="bigint" Nullable="false" />
+    <Property Name="IdentifierContractType" Type="bigint" Nullable="false" />
+    <Property Name="PublishDateTime" Type="datetime2" Precision="7" />
+    <Property Name="Duration" Type="int" Nullable="false" />
+    <Property Name="StartContractDate" Type="date" />
+    <Property Name="PostCount" Type="int" />
+    <Property Name="JobDescription" Type="nvarchar" MaxLength="2000" />
+    <Property Name="ProfilDescription" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Street" Type="nvarchar" MaxLength="70" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="ZipCode" Type="nchar" MaxLength="10" />
+    <Property Name="IdentifierProducer" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pack">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="50" />
+    <Property Name="Remuneration" Type="int" />
+    <Property Name="Prix" Type="int" />
+    <Property Name="OfferNumber" Type="int" />
+  </EntityType>
+  <EntityType Name="Producer">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Salt" Type="nvarchar" MaxLength="50" />
+    <Property Name="IdentifierPack" Type="bigint" />
+    <Property Name="offerNumber" Type="int" />
+  </EntityType>
+  <Association Name="FK_Job_JobType">
+    <End Role="JobType" Type="Self.JobType" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobType">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="IdentifierJobType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Offer_ContractType">
+    <End Role="ContractType" Type="Self.ContractType" Multiplicity="1" />
+    <End Role="Offer" Type="Self.Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContractType">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Offer">
+        <PropertyRef Name="IdentifierContractType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Offer_Job">
+    <End Role="Job" Type="Self.Job" Multiplicity="1" />
+    <End Role="Offer" Type="Self.Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Offer">
+        <PropertyRef Name="IdentifierJob" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Offer_Producer">
+    <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
+    <End Role="Offer" Type="Self.Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producer">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Offer">
+        <PropertyRef Name="IdentifierProducer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producer_Pack">
+    <End Role="Pack" Type="Self.Pack" Multiplicity="0..1" />
+    <End Role="Producer" Type="Self.Producer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pack">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Producer">
+        <PropertyRef Name="IdentifierPack" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MegaCastingModelStoreContainer">
+    <EntitySet Name="BroadcastPartner" EntityType="Self.BroadcastPartner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContractType" EntityType="Self.ContractType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobType" EntityType="Self.JobType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Offer" EntityType="Self.Offer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pack" EntityType="Self.Pack" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Job_JobType" Association="Self.FK_Job_JobType">
+      <End Role="JobType" EntitySet="JobType" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Offer_ContractType" Association="Self.FK_Offer_ContractType">
+      <End Role="ContractType" EntitySet="ContractType" />
+      <End Role="Offer" EntitySet="Offer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Offer_Job" Association="Self.FK_Offer_Job">
+      <End Role="Job" EntitySet="Job" />
+      <End Role="Offer" EntitySet="Offer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Offer_Producer" Association="Self.FK_Offer_Producer">
+      <End Role="Producer" EntitySet="Producer" />
+      <End Role="Offer" EntitySet="Offer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producer_Pack" Association="Self.FK_Producer_Pack">
+      <End Role="Pack" EntitySet="Pack" />
+      <End Role="Producer" EntitySet="Producer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

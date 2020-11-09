@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MegaCastingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MegaCastingEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BroadcastPartners" EntityType="MegaCastingModel.BroadcastPartner" />
+    <EntitySet Name="Cities" EntityType="MegaCastingModel.City" />
+    <EntitySet Name="ContractTypes" EntityType="MegaCastingModel.ContractType" />
+    <EntitySet Name="DomainJobs" EntityType="MegaCastingModel.DomainJob" />
+    <EntitySet Name="Jobs" EntityType="MegaCastingModel.Job" />
+    <EntitySet Name="Offers" EntityType="MegaCastingModel.Offer" />
+    <EntitySet Name="Packs" EntityType="MegaCastingModel.Pack" />
+    <EntitySet Name="Producers" EntityType="MegaCastingModel.Producer" />
+    <EntitySet Name="Users" EntityType="MegaCastingModel.User" />
+    <EntitySet Name="UserOffers" EntityType="MegaCastingModel.UserOffer" />
+    <AssociationSet Name="FK_BroadcastPartner_City" Association="MegaCastingModel.FK_BroadcastPartner_City">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="BroadcastPartner" EntitySet="BroadcastPartners" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Offer_City" Association="MegaCastingModel.FK_Offer_City">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Offer" EntitySet="Offers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_City" Association="MegaCastingModel.FK_User_City">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Offer_ContractType" Association="MegaCastingModel.FK_Offer_ContractType">
+      <End Role="ContractType" EntitySet="ContractTypes" />
+      <End Role="Offer" EntitySet="Offers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Job_DomainJob" Association="MegaCastingModel.FK_Job_DomainJob">
+      <End Role="DomainJob" EntitySet="DomainJobs" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Offer_Job" Association="MegaCastingModel.FK_Offer_Job">
+      <End Role="Job" EntitySet="Jobs" />
+      <End Role="Offer" EntitySet="Offers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Offer_Producer" Association="MegaCastingModel.FK_Offer_Producer">
+      <End Role="Producer" EntitySet="Producers" />
+      <End Role="Offer" EntitySet="Offers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserOffer_Offer" Association="MegaCastingModel.FK_UserOffer_Offer">
+      <End Role="Offer" EntitySet="Offers" />
+      <End Role="UserOffer" EntitySet="UserOffers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producer_Pack" Association="MegaCastingModel.FK_Producer_Pack">
+      <End Role="Pack" EntitySet="Packs" />
+      <End Role="Producer" EntitySet="Producers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserOffer_User" Association="MegaCastingModel.FK_UserOffer_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserOffer" EntitySet="UserOffers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BroadcastPartner">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Street" Type="String" MaxLength="70" FixedLength="true" Unicode="true" />
+    <Property Name="IdentifierCity" Type="Int64" />
+    <NavigationProperty Name="City" Relationship="MegaCastingModel.FK_BroadcastPartner_City" FromRole="BroadcastPartner" ToRole="City" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="ZipCode" Type="Int32" />
+    <NavigationProperty Name="BroadcastPartners" Relationship="MegaCastingModel.FK_BroadcastPartner_City" FromRole="City" ToRole="BroadcastPartner" />
+    <NavigationProperty Name="Offers" Relationship="MegaCastingModel.FK_Offer_City" FromRole="City" ToRole="Offer" />
+    <NavigationProperty Name="Users" Relationship="MegaCastingModel.FK_User_City" FromRole="City" ToRole="User" />
+  </EntityType>
+  <EntityType Name="ContractType">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Offers" Relationship="MegaCastingModel.FK_Offer_ContractType" FromRole="ContractType" ToRole="Offer" />
+  </EntityType>
+  <EntityType Name="DomainJob">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Jobs" Relationship="MegaCastingModel.FK_Job_DomainJob" FromRole="DomainJob" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="IdentifierDomainJob" Type="Int64" />
+    <NavigationProperty Name="DomainJob" Relationship="MegaCastingModel.FK_Job_DomainJob" FromRole="Job" ToRole="DomainJob" />
+    <NavigationProperty Name="Offers" Relationship="MegaCastingModel.FK_Offer_Job" FromRole="Job" ToRole="Offer" />
+  </EntityType>
+  <EntityType Name="Offer">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Reference" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PublishDateTime" Type="DateTime" Precision="7" />
+    <Property Name="Duration" Type="Int32" Nullable="false" />
+    <Property Name="StartContractDate" Type="DateTime" Precision="0" />
+    <Property Name="PostCount" Type="Int32" />
+    <Property Name="JobDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="ProfilDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Street" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+    <Property Name="IdentifierCity" Type="Int64" />
+    <Property Name="IdentifierProducer" Type="Int64" />
+    <Property Name="IdentifierJob" Type="Int64" />
+    <Property Name="IdentifierContractType" Type="Int64" />
+    <NavigationProperty Name="City" Relationship="MegaCastingModel.FK_Offer_City" FromRole="Offer" ToRole="City" />
+    <NavigationProperty Name="ContractType" Relationship="MegaCastingModel.FK_Offer_ContractType" FromRole="Offer" ToRole="ContractType" />
+    <NavigationProperty Name="Job" Relationship="MegaCastingModel.FK_Offer_Job" FromRole="Offer" ToRole="Job" />
+    <NavigationProperty Name="Producer" Relationship="MegaCastingModel.FK_Offer_Producer" FromRole="Offer" ToRole="Producer" />
+    <NavigationProperty Name="UserOffers" Relationship="MegaCastingModel.FK_UserOffer_Offer" FromRole="Offer" ToRole="UserOffer" />
+  </EntityType>
+  <EntityType Name="Pack">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Prix" Type="Int32" />
+    <Property Name="OfferNumber" Type="Int32" />
+    <NavigationProperty Name="Producers" Relationship="MegaCastingModel.FK_Producer_Pack" FromRole="Pack" ToRole="Producer" />
+  </EntityType>
+  <EntityType Name="Producer">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdentifierPack" Type="Int64" />
+    <NavigationProperty Name="Offers" Relationship="MegaCastingModel.FK_Offer_Producer" FromRole="Producer" ToRole="Offer" />
+    <NavigationProperty Name="Pack" Relationship="MegaCastingModel.FK_Producer_Pack" FromRole="Producer" ToRole="Pack" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsAdmin" Type="Byte" />
+    <Property Name="IdentifierCity" Type="Int64" />
+    <NavigationProperty Name="City" Relationship="MegaCastingModel.FK_User_City" FromRole="User" ToRole="City" />
+    <NavigationProperty Name="UserOffers" Relationship="MegaCastingModel.FK_UserOffer_User" FromRole="User" ToRole="UserOffer" />
+  </EntityType>
+  <EntityType Name="UserOffer">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdentifierUser" Type="Int64" Nullable="false" />
+    <Property Name="IdentifierOffer" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Offer" Relationship="MegaCastingModel.FK_UserOffer_Offer" FromRole="UserOffer" ToRole="Offer" />
+    <NavigationProperty Name="User" Relationship="MegaCastingModel.FK_UserOffer_User" FromRole="UserOffer" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_BroadcastPartner_City">
+    <End Type="MegaCastingModel.City" Role="City" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.BroadcastPartner" Role="BroadcastPartner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="BroadcastPartner">
+        <PropertyRef Name="IdentifierCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Offer_City">
+    <End Type="MegaCastingModel.City" Role="City" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.Offer" Role="Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Offer">
+        <PropertyRef Name="IdentifierCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_City">
+    <End Type="MegaCastingModel.City" Role="City" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdentifierCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Offer_ContractType">
+    <End Type="MegaCastingModel.ContractType" Role="ContractType" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.Offer" Role="Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContractType">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Offer">
+        <PropertyRef Name="IdentifierContractType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Job_DomainJob">
+    <End Type="MegaCastingModel.DomainJob" Role="DomainJob" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.Job" Role="Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DomainJob">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="IdentifierDomainJob" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Offer_Job">
+    <End Type="MegaCastingModel.Job" Role="Job" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.Offer" Role="Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Offer">
+        <PropertyRef Name="IdentifierJob" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Offer_Producer">
+    <End Type="MegaCastingModel.Producer" Role="Producer" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.Offer" Role="Offer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producer">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Offer">
+        <PropertyRef Name="IdentifierProducer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserOffer_Offer">
+    <End Type="MegaCastingModel.Offer" Role="Offer" Multiplicity="1" />
+    <End Type="MegaCastingModel.UserOffer" Role="UserOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Offer">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="UserOffer">
+        <PropertyRef Name="IdentifierOffer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producer_Pack">
+    <End Type="MegaCastingModel.Pack" Role="Pack" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.Producer" Role="Producer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pack">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Producer">
+        <PropertyRef Name="IdentifierPack" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserOffer_User">
+    <End Type="MegaCastingModel.User" Role="User" Multiplicity="1" />
+    <End Type="MegaCastingModel.UserOffer" Role="UserOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="UserOffer">
+        <PropertyRef Name="IdentifierUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

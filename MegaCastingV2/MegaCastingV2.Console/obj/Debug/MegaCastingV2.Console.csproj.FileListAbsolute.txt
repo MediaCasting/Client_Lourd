@@ -1,0 +1,15 @@
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\MegaCastingV2.Console.exe.config
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\MegaCastingV2.Console.exe
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\MegaCastingV2.Console.pdb
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\obj\Debug\MegaCastingV2.Console.csprojAssemblyReference.cache
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\obj\Debug\MegaCastingV2.Console.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\obj\Debug\MegaCastingV2.Console.exe
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\obj\Debug\MegaCastingV2.Console.pdb
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\EntityFramework.dll
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\MegaCastingV2.DBlib.dll
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\MegaCastingV2.DBlib.pdb
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\MegaCastingV2.DBlib.dll.config
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\EntityFramework.xml
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\User\source\repos\E2\MegaCastingV2\MegaCastingV2.Console\obj\Debug\MegaCastingV2.Console.csproj.CopyComplete

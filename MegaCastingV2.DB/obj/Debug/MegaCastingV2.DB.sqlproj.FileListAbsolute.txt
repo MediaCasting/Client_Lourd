@@ -1,0 +1,16 @@
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\bin\Debug\MegaCastingV2.DB.dacpac
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\bin\Debug\MegaCastingV2.DB.dll
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\bin\Debug\MegaCastingV2.DB.pdb
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\obj\Debug\MegaCastingV2.DB.sqlprojAssemblyReference.cache
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\obj\Debug\Model.xml
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\obj\Debug\refactor.xml
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\obj\Debug\postdeploy.sql
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\obj\Debug\predeploy.sql
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\obj\Debug\MegaCastingV2.DB.dll
+C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.DB\obj\Debug\MegaCastingV2.DB.pdb
+C:\Users\User\Desktop\ClientLourd\MegaCastingV2.DB\bin\Debug\MegaCastingV2.DB.dacpac
+C:\Users\User\Desktop\ClientLourd\MegaCastingV2.DB\bin\Debug\MegaCastingV2.DB.dll
+C:\Users\User\Desktop\ClientLourd\MegaCastingV2.DB\bin\Debug\MegaCastingV2.DB.pdb
+C:\Users\User\Desktop\ClientLourd\MegaCastingV2.DB\obj\Debug\MegaCastingV2.DB.sqlprojAssemblyReference.cache
+C:\Users\User\Desktop\ClientLourd\MegaCastingV2.DB\obj\Debug\MegaCastingV2.DB.dll
+C:\Users\User\Desktop\ClientLourd\MegaCastingV2.DB\obj\Debug\MegaCastingV2.DB.pdb
