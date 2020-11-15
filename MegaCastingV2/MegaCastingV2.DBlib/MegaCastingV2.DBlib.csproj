@@ -87,6 +87,7 @@
     <Compile Include="Pack.cs">
       <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partial\ContractType.cs" />
     <Compile Include="Producer.cs">
       <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
     </Compile>

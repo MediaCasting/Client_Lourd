@@ -1,6 +1,7 @@
 ﻿using MegaCastingV2.DBlib;
 using MegaCastingV2.WPF.View;
 using MegaCastingV2.WPF.ViewModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -38,7 +39,12 @@ namespace MegaCastingV2.WPF
         {
             InitializeComponent();
 
-            this._Entities = new MegaCastingEntities();
+            #if DEBUG
+                this.Entities = new MegaCastingEntities();
+            #endif
+            #if RELEASE
+                this.Entities.ContractTypes.FirstOrDefault();
+            #endif
         }
 
         /// <summary>
@@ -117,9 +123,9 @@ namespace MegaCastingV2.WPF
             viewJob.DataContext = viewModel;
             this.DockPanelView.Children.Add(viewJob);
         }
-        #endregion
+#endregion
         // Gestion des évènement sur la fenètre
-        #region EventWindows
+#region EventWindows
         /// <summary>
         /// Action permettant de reduire la fenètre
         /// </summary>
@@ -151,7 +157,7 @@ namespace MegaCastingV2.WPF
         }
 
 
-        #endregion
+#endregion
 
       
     }

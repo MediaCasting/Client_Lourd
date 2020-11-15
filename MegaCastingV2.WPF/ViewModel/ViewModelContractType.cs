@@ -15,7 +15,6 @@ namespace MegaCastingV2.WPF.ViewModel
     {
 
         #region Attributes
-        private ObservableCollection<Offer> _Offers;
 
         
 
@@ -33,7 +32,7 @@ namespace MegaCastingV2.WPF.ViewModel
 
         #region Properties
         /// <summary>
-        /// Obtien ou défini les ContractType
+        /// Obtient ou défini les ContractType
         /// </summary>
         public ObservableCollection<ContractType> ContractTypes
         {
@@ -42,7 +41,7 @@ namespace MegaCastingV2.WPF.ViewModel
         }
 
         /// <summary>
-        /// Obtion ou défini le ContractType Selectionné
+        /// Obtient ou défini le ContractType Selectionné
         /// </summary>
         public ContractType SelectedContractType
         {
@@ -50,26 +49,20 @@ namespace MegaCastingV2.WPF.ViewModel
             set { _SelectedContractType = value; }
         }
 
-        /// <summary>
-        /// Obtion ou défini les Offre
-        /// </summary>
-        public ObservableCollection<Offer> Offers
-        {
-            get { return _Offers; }
-            set { _Offers = value; }
-        }
+
         #endregion
 
 
         #region Constructor
+        /// <summary>
+        /// Permet d'affcter a ContractTypes les entités de la liste des types de contrats
+        /// </summary>
+        /// <param name="entities"></param>
         public ViewModelContractType(MegaCastingEntities entities)
             : base(entities)
         {
             this.Entities.ContractTypes.ToList();
             this.ContractTypes = this.Entities.ContractTypes.Local;
-
-            this.Entities.Offers.ToList();
-            this.Offers = this.Entities.Offers.Local;
 
         }
 
@@ -82,11 +75,15 @@ namespace MegaCastingV2.WPF.ViewModel
         /// <param name="text">Text saisie</param>
         public void AddContractType(string text)
         {
+            //Vérification d'existence de champ 
             if (text.Any())
             {
+                //Vérification -> Le nom du contrat existe déjà ?
                 if ( !this.Entities.ContractTypes.Any(type => type.Name == text))
                 {
+                    //Demande d'ajout
                     MessageBoxResult result = MessageBox.Show("Souhaitez-vous confirmer l'ajout", "Ajout d'un type de job", MessageBoxButton.YesNo);
+                    //Ajout d'un nouveau contractType
                     if (result == MessageBoxResult.Yes)
                     {
                         ContractType contractType = new ContractType();
@@ -108,10 +105,7 @@ namespace MegaCastingV2.WPF.ViewModel
             }
 
 
-            
-
         }
-
 
 
         /// <summary>
@@ -119,6 +113,7 @@ namespace MegaCastingV2.WPF.ViewModel
         /// </summary>
         public void UpdateContractType(string text)
         {
+            //Vérification de validité pour mettre a jour le ContractType 
             if (SelectedContractType != null && !this.Entities.ContractTypes
                 .Any(type => type.Name == text))
             {
@@ -134,19 +129,22 @@ namespace MegaCastingV2.WPF.ViewModel
         }
 
         /// <summary>
-        /// 
+        /// Permet de supprimer un ContractType
         /// </summary>
         public void DeleteContractType()
         {
-            //Vérrification si on a le droit de supprimer
+            //Vérrification d'existence pour le supprimer
 
             if (SelectedContractType == null)
             {
                 MessageBox.Show("Vous devez selectionner un Type de Contrat pour le supprimer");
             }
+            //Si il y a un contractType faire ceci 
             else if (!SelectedContractType.Offers.Any())
             {
+                //Demande de Suppression 
                 MessageBoxResult result = MessageBox.Show("Souhaitez-vous confimer la suppression", "Suppresion d'un Type de Contrat", MessageBoxButton.YesNo);
+                //Suppression d'un ContractType
                 if (result == MessageBoxResult.Yes)
                 {
 

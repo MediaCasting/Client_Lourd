@@ -23,30 +23,76 @@
 
         <Grid Grid.Row="0">
 
-            <TextBlock x:Name="Title" TextAlignment="Center" Text="Type de contrat"  ></TextBlock>
+            <TextBlock 
+                FontFamily = "Times New Roman"
+                Style="{StaticResource MaterialDesignHeadline3TextBlock}"
+                x:Name="Title"
+                TextAlignment="Center"
+                VerticalAlignment="Center" 
+                Text="Métiers"></TextBlock>
 
         </Grid>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="LightGray">
+                    <materialDesign:ColorZone
+                    Mode="Standard"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Padding="8 4 8 4"
+                    CornerRadius="2"
+                    Panel.ZIndex="1"
+                    Margin="10 0"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBox
+                                Grid.Column="1"
+                                Margin="8 0 0 0"
+                                materialDesign:HintAssist.Hint="Recherche ..."
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                BorderThickness="0"
+                                MinWidth="130"
+                                VerticalAlignment="Center" />
+                        </Grid>
+                    </materialDesign:ColorZone>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="ListBoxJob"  
+                        Grid.Row="1" 
+                        Grid.Column="0" 
+                        Background="White" 
+                        ItemsSource="{Binding Jobs}"
+                        DisplayMemberPath="Name" 
+                        SelectedItem="{Binding SelectedJob}"></ListBox>
 
-                <ListBox x:Name="ListBoxJob"  
-                 Grid.Row="1" 
-                 Grid.Column="0" 
-                 Background="White" 
-                 ItemsSource="{Binding Jobs}"
-                 DisplayMemberPath="Name" 
-                 SelectedItem="{Binding SelectedJob}"></ListBox>
+                    <Grid Grid.Column="1" Background="LightGray"/>
+
+
+                </Grid>
+                
 
             </Grid>
-            <Grid Grid.Column="1" Background="Black"/>
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="1">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
@@ -65,7 +111,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="1">
-                        <ComboBox Grid.Row="0" x:Name="ComboBoxJob" ItemsSource="{Binding DomainJobs}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedJob.DomainJob}" materialDesign:HintAssist.Hint="Domain de travail" Margin="0,0,0,1" VerticalAlignment="Bottom"/>
+                        <ComboBox Grid.Row="0" x:Name="ComboBoxJob" ItemsSource="{Binding DomainJobs}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedJob.DomainJob}" materialDesign:HintAssist.Hint="Secteur d'activité" Margin="0,0,0,1" VerticalAlignment="Bottom"/>
                     </Grid>
                     <Grid Grid.Row="3">
                         <TextBox Grid.Row="0" Grid.Column="1" x:Name="NameJob" Text="{Binding SelectedJob.Name}" materialDesign:HintAssist.Hint="Nom :"></TextBox>

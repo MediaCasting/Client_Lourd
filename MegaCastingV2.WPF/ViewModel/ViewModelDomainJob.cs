@@ -24,11 +24,9 @@ namespace MegaCastingV2.WPF.ViewModel
         private DomainJob _SelectedDomainJob;
         #endregion
 
-
-
         #region Properties
         /// <summary>
-        /// Obtion ou défini les DomainJob
+        /// Obtient ou défini les DomainJob
         /// </summary>
         public ObservableCollection<DomainJob> DomainJobs
         {
@@ -37,7 +35,7 @@ namespace MegaCastingV2.WPF.ViewModel
         }
 
         /// <summary>
-        /// Obtien ou défini le DomainJob Sélectionné
+        /// Obtient ou défini le DomainJob Sélectionné
         /// </summary>
         public DomainJob SelectedDomainJob
         {
@@ -47,6 +45,10 @@ namespace MegaCastingV2.WPF.ViewModel
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Permet d'affcter a DomainJob les entités de la liste des DomainJob
+        /// </summary>
+        /// <param name="entities"></param>
         public ViewModelDomainJob(MegaCastingEntities entities)
             : base(entities)
         {
@@ -62,16 +64,20 @@ namespace MegaCastingV2.WPF.ViewModel
         /// </summary>
         public void UpdateDomainJob()
         {
+            //TODO : Vérifs
+
             this.Entities.SaveChanges();
         }
 
-
+        //Ajout d'un DomainJob
         public void AddDomainJob()
         {
+            //Vérifiaction de validité 
             if (!this.Entities.DomainJobs
                 .Any(type => type.Name == "Nouveau diplome")
                 )
             {
+                //Ajout d'un nouveau DomainJob
                 DomainJob domainJob = new DomainJob();
                 domainJob.Name = "nouveau diplome";
                 this.DomainJobs.Add(domainJob);
@@ -80,10 +86,12 @@ namespace MegaCastingV2.WPF.ViewModel
                 this.SelectedDomainJob = domainJob;
             }
         }
+        /// <summary>
+        /// Permet de supprimer un DomainJob
+        /// </summary>
         public void DeleteDomainJob()
         {
-            //Vérrification si on a le droit de supprimer
-
+            //TODO : Vérifs
 
             // Suppression de l'élément
             this.DomainJobs.Remove(SelectedDomainJob);

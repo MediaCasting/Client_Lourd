@@ -20,6 +20,9 @@ namespace MegaCastingV2.WPF.View
     /// </summary>
     public partial class ViewMain : UserControl
     {
+        /// <summary>
+        /// Initialise le composant 
+        /// </summary>
         public ViewMain()
         {
             InitializeComponent();

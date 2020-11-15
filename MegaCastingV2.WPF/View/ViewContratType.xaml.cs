@@ -23,7 +23,7 @@ namespace MegaCastingV2.WPF.View
     public partial class ViewContratType : UserControl
     {
         /// <summary>
-        /// Initialise de le composant ainsi que le datacontexte ViewModelViewJobType
+        /// Initialise le composant
         /// </summary>
         public ViewContratType()
         {
@@ -31,12 +31,13 @@ namespace MegaCastingV2.WPF.View
         }
 
         /// <summary>
-        /// Permet l'ajout d'un type de travail 
+        /// Affecte la fonction AddContractType au bouton Insert
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonManageInsert_Click(object sender, RoutedEventArgs e)
         {
+            //Vérification de validité
             if (ListBoxContractType.SelectedItem == null)
             {
                 ((ViewModelContractType)this.DataContext).AddContractType(this.Nom.Text);
@@ -50,26 +51,33 @@ namespace MegaCastingV2.WPF.View
         }
 
         /// <summary>
-        /// Permet la supression d'un type de  travail 
+        /// Affecte la fonction DeleteContractType au bouton Delete
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
-            
+            //TODO : Vérifs
+
             ((ViewModelContractType)this.DataContext).DeleteContractType();
         }
 
         /// <summary>
-        /// Permet la mise à jour d'un type de travail
+        /// Affecte la fonction UpdateContractType au bouton Update
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
         {
+            //TODO : Vérifs
+
             ((ViewModelContractType)this.DataContext).UpdateContractType(this.Nom.Text);
         }
-
+        /// <summary>
+        /// Affecte la fonction UnselectAll au bouton Reset
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
         {
             ListBoxContractType.UnselectAll();

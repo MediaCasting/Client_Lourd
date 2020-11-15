@@ -17,33 +17,58 @@ using System.Windows.Shapes;
 namespace MegaCastingV2.WPF.View
 {
     /// <summary>
-    /// Logique d'interaction pour ViewWorkType.xaml
+    /// Logique d'interaction pour ViewDomainJob.xaml
     /// </summary>
     public partial class ViewDomainJob : UserControl
     {
+        /// <summary>
+        /// Initialise le composant
+        /// </summary>
         public ViewDomainJob()
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Affecte la fonction AddDomainJob au bouton Insert
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageInsert_Click(object sender, RoutedEventArgs e)
         {
+            //TODO : Vérifs
+
             ((ViewModelDomainJob)this.DataContext).AddDomainJob();
 
         }
-
+        /// <summary>
+        /// Affecte la fonction DeleteDomainJob au bouton Delete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
+            //TODO : Vérifs
+
             ((ViewModelDomainJob)this.DataContext).DeleteDomainJob();
 
         }
-
+        /// <summary>
+        /// Affecte la fonction UpdateDomainJob au bouton update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
         {
+            //TODO : Vérifs
+
             ((ViewModelDomainJob)this.DataContext).UpdateDomainJob();
 
         }
-
+        /// <summary>
+        /// Affecte la fonction UnselectAll au bouton Reset
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
         {
             ListBoxDomainJob.UnselectAll();

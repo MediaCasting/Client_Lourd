@@ -5,13 +5,344 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MegaCastingV2.WPF.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <Grid.Background >
-            <ImageBrush ImageSource="C:\Users\User\source\repos\Cours c#\MegaCasting\ClientLourd\MegaCastingV2.WPF\img\Picture_Home.jpg"/>
-           
-        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <!--#region Stats-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--#region Number Artist-->
+            <Grid Grid.Column="1" Background="GreenYellow">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid Margin="20 0" Grid.Row="0">
+                    <TextBlock
+                        Margin="0 7 0 0"
+                        Style="{StaticResource MaterialDesignHeadline3TextBlock}">480</TextBlock>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Margin="7 0 0 0">
+                        <TextBlock 
+                            FontFamily = "Times New Roman"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}">Artistes</TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <materialDesign:PackIcon Margin="0 -10 " Width="150" Height="118" Kind="AccountMusicOutline" />
 
+                    </Grid>
+                </Grid>
+
+
+            </Grid>
+            <!--#endregion-->
+            <!--#region Number Offer-->
+            <Grid Grid.Column="3" Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid Margin="20 0" Grid.Row="0">
+                    <TextBlock 
+                        Margin="0 7 0 0"
+                        Style="{StaticResource MaterialDesignHeadline3TextBlock}">10 000</TextBlock>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Margin="7 0 0 0">
+                        <TextBlock 
+                            FontFamily = "Times New Roman"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}">Annonces</TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <materialDesign:PackIcon Margin="7 -8" Width="150" Height="118" Kind="FileDocumentOutline" />
+
+                    </Grid>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+            <!--#region Number Producer -->
+            <Grid Grid.Column="5" Background="GreenYellow">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid Margin="20 0" Grid.Row="0">
+                    <TextBlock 
+                        Margin="0 7 0 0"
+                        Style="{StaticResource MaterialDesignHeadline3TextBlock}">50</TextBlock>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.8*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Margin="7 0 0 0">
+                        <TextBlock 
+                            FontFamily = "Times New Roman"
+                            Style="{StaticResource MaterialDesignHeadline5TextBlock}">Producteurs</TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <materialDesign:PackIcon Margin="-5 -20 " Width="150" Height="118" Kind="ProfessionalHexagon" />
+
+                    </Grid>
+                </Grid>
+
+
+            </Grid>
+            <!--#endregion-->
+        </Grid>
+        <!--#endregion-->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--#region Stat Best Jobs-->
+
+            <Grid Grid.Column="1" Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                <Grid Margin="15 0">
+                    <TextBlock
+                        FontFamily = "Times New Roman"
+                        FontWeight="UltraBold"
+                        FontStyle="Italic"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}">Meilleur job</TextBlock>
+                </Grid>
+                <!--#region board-->
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="1.5"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="1"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="1"/>
+                    </Grid.RowDefinitions>
+
+                    <!--#region En-tête-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <TextBlock 
+                                FontFamily = "Times New Roman"
+                                FontWeight="UltraBold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">#</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">Nom du domaine</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">Nom du job</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="3">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">Poucentage</TextBlock>
+                        </Grid>
+
+                    </Grid>
+                    <Grid Grid.Row="1">
+
+                    </Grid>
+                    <!--#endregion-->
+
+                    <Grid Grid.Row="1" Background="Black"></Grid>
+
+                    <!--#region first-->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <TextBlock 
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">1</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">Musique</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">Guitariste</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="3">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">60 %</TextBlock>
+                        </Grid>
+
+                    </Grid>
+                    <Grid Grid.Row="1">
+
+                    </Grid>
+                    <!--#endregion-->
+
+                    <Grid Grid.Row="3" Background="Black"></Grid>
+                    <!--#region Second-->
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <TextBlock 
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">2</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">Danceur</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">Hip Hop</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="3">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">30 %</TextBlock>
+                        </Grid>
+
+                    </Grid>
+                    <Grid Grid.Row="1">
+
+                    </Grid>
+                    <!--#endregion-->
+
+                    <Grid Grid.Row="5" Background="Black"></Grid>
+
+                    <!--#region Third-->
+                    <Grid Grid.Row="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <TextBlock 
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">3</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">...</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">...</TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="3">
+                            <TextBlock
+                                FontFamily = "Times New Roman"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">10 %</TextBlock>
+                        </Grid>
+
+                    </Grid>
+                    <Grid Grid.Row="1">
+
+                    </Grid>
+                    <!--#endregion-->
+                </Grid>
+                <!--#endregion-->
+            </Grid>
+            <!--#endregion-->
+
+        </Grid>
 
     </Grid>
 </UserControl>

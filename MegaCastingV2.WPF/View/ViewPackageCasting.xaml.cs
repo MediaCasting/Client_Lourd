@@ -21,31 +21,65 @@ namespace MegaCastingV2.WPF.View
     /// </summary>
     public partial class ViewPackageCasting : UserControl
     {
+        /// <summary>
+        /// Initialise le composant 
+        /// </summary>
         public ViewPackageCasting()
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Affecte la fonction AddPackageCasting au bouton Insert
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageInsert_Click(object sender, RoutedEventArgs e)
         {
-            ((ViewModelPackageCasting)this.DataContext).AddPackageCasting();
+            //Vérification de validité
+            if (ListBoxPack.SelectedItems == null)
+            {
+                ((ViewModelPackageCasting)this.DataContext).AddPackageCasting(this.NamePack.Text, this.OfferNumber.Text, this.Prix.Text);
+            }
+            else
+            {
 
+                MessageBox.Show("Impossible d'ajouter un type de contrat à partir d'un contrat existant");
+
+            }
         }
-
+        /// <summary>
+        /// Affecte la fonction DeletePackageCasting au bouton Insert
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
+            //TODO : Vérifs
+
             ((ViewModelPackageCasting)this.DataContext).DeletePackageCasting();
 
         }
-
+        /// <summary>
+        /// Affecte la fonction UpdatePackageCasting au bouton Insert
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
         {
-            ((ViewModelPackageCasting)this.DataContext).UpdatePackageCasting();
+            //TODO : Vérifs
+
+            ((ViewModelPackageCasting)this.DataContext).UpdatePackageCasting(this.NamePack.Text, this.OfferNumber.Text, this.Prix.Text);
 
         }
-
+        /// <summary>
+        /// Affecte la fonction UnselectAll au bouton reset
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
         {
+
+
             ListBoxPack.UnselectAll();
 
         }

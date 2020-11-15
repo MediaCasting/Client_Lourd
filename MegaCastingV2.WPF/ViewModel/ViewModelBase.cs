@@ -20,7 +20,7 @@ namespace MegaCastingV2.WPF.ViewModel
 
         #region Properties
         /// <summary>
-        /// Obtoen ou défini le Context de l'application
+        /// Obtient ou défini le Context de l'application
         /// </summary>
         public MegaCastingEntities Entities
         {
