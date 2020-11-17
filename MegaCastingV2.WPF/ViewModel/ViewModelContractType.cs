@@ -96,12 +96,12 @@ namespace MegaCastingV2.WPF.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Le contrat existe déjà");
+                    MessageBox.Show("Le contrat existe déjà !");
                 }
             }
             else
             {
-                MessageBox.Show("Veuillez saisir un Nom");
+                MessageBox.Show("Veuillez renseigner un Nom");
             }
 
 
@@ -114,8 +114,8 @@ namespace MegaCastingV2.WPF.ViewModel
         public void UpdateContractType(string text)
         {
             //Vérification de validité pour mettre a jour le ContractType 
-            if (SelectedContractType != null && !this.Entities.ContractTypes
-                .Any(type => type.Name == text))
+            if (SelectedContractType != null 
+                && !this.Entities.ContractTypes.Any(type => type.Name == text))
             {
                 ContractType contractType = new ContractType();
                 contractType.Name = text;

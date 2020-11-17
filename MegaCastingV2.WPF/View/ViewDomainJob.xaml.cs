@@ -35,9 +35,15 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageInsert_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
-
-            ((ViewModelDomainJob)this.DataContext).AddDomainJob();
+            //TODO : Vérifs//Vérification de validité
+            if (ListBoxDomainJob.SelectedItem == null)
+            {
+                ((ViewModelDomainJob)this.DataContext).AddDomainJob(this.Nom.Text);
+            }
+            else
+            {
+                MessageBox.Show("Impossible d'ajouter un secteur d'activité à partir d'un secteur d'activité existant");
+            }
 
         }
         /// <summary>
@@ -47,7 +53,7 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
+            
 
             ((ViewModelDomainJob)this.DataContext).DeleteDomainJob();
 
@@ -61,7 +67,7 @@ namespace MegaCastingV2.WPF.View
         {
             //TODO : Vérifs
 
-            ((ViewModelDomainJob)this.DataContext).UpdateDomainJob();
+            ((ViewModelDomainJob)this.DataContext).UpdateDomainJob(this.Nom.Text);
 
         }
         /// <summary>
