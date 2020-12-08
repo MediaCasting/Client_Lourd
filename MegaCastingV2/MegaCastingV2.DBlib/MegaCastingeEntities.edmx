@@ -39,6 +39,14 @@
           <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Identifier" />
+          </Key>
+          <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Format" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="Libelle" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Job">
           <Key>
             <PropertyRef Name="Identifier" />
@@ -47,6 +55,17 @@
           <Property Name="Name" Type="nchar" MaxLength="50" />
           <Property Name="IdentifierDomainJob" Type="bigint" />
         </EntityType>
+        <EntityType Name="Messagerie">
+          <Key>
+            <PropertyRef Name="Identifier" />
+          </Key>
+          <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Texte" Type="nvarchar" MaxLength="500" />
+          <Property Name="Date" Type="date" />
+          <Property Name="QuiEcrit" Type="bit" />
+          <Property Name="IdentifierUser" Type="bigint" Nullable="false" />
+          <Property Name="IdentifierProducer" Type="bigint" Nullable="false" />
+        </EntityType>
         <EntityType Name="Offer">
           <Key>
             <PropertyRef Name="Identifier" />
@@ -54,9 +73,9 @@
           <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Reference" Type="nvarchar" MaxLength="50" />
-          <Property Name="PublishDateTime" Type="datetime2" Precision="7" />
+          <Property Name="PublishDateTime" Type="datetime" />
           <Property Name="Duration" Type="int" Nullable="false" />
-          <Property Name="StartContractDate" Type="date" />
+          <Property Name="StartContractDate" Type="datetime" />
           <Property Name="PostCount" Type="int" />
           <Property Name="JobDescription" Type="nvarchar" MaxLength="2000" />
           <Property Name="ProfilDescription" Type="nvarchar" MaxLength="2000" />
@@ -85,19 +104,27 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="Salt" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="IdentifierPack" Type="bigint" />
+          <Property Name="IdentifierImage" Type="bigint" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Identifier" />
           </Key>
           <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="int" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="int" />
           <Property Name="Salt" Type="nvarchar" MaxLength="50" />
           <Property Name="IsAdmin" Type="tinyint" />
+          <Property Name="Descritpion" Type="nvarchar" MaxLength="100" />
           <Property Name="IdentifierCity" Type="bigint" />
+          <Property Name="IdentifierImage" Type="bigint" />
         </EntityType>
         <EntityType Name="UserOffer">
           <Key>
@@ -128,6 +155,30 @@
             </Principal>
             <Dependent Role="Job">
               <PropertyRef Name="IdentifierDomainJob" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messagerie_Producer">
+          <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
+          <End Role="Messagerie" Type="Self.Messagerie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producer">
+              <PropertyRef Name="Identifier" />
+            </Principal>
+            <Dependent Role="Messagerie">
+              <PropertyRef Name="IdentifierProducer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messagerie_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Messagerie" Type="Self.Messagerie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Identifier" />
+            </Principal>
+            <Dependent Role="Messagerie">
+              <PropertyRef Name="IdentifierUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -179,6 +230,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Producer_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+          <End Role="Producer" Type="Self.Producer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Identifier" />
+            </Principal>
+            <Dependent Role="Producer">
+              <PropertyRef Name="IdentifierImage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Producer_Pack">
           <End Role="Pack" Type="Self.Pack" Multiplicity="0..1" />
           <End Role="Producer" Type="Self.Producer" Multiplicity="*" />
@@ -200,6 +263,18 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="IdentifierCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Identifier" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdentifierImage" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -232,7 +307,9 @@
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContractType" EntityType="Self.ContractType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DomainJob" EntityType="Self.DomainJob" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messagerie" EntityType="Self.Messagerie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offer" EntityType="Self.Offer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pack" EntityType="Self.Pack" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
@@ -245,6 +322,14 @@
           <AssociationSet Name="FK_Job_DomainJob" Association="Self.FK_Job_DomainJob">
             <End Role="DomainJob" EntitySet="DomainJob" />
             <End Role="Job" EntitySet="Job" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messagerie_Producer" Association="Self.FK_Messagerie_Producer">
+            <End Role="Producer" EntitySet="Producer" />
+            <End Role="Messagerie" EntitySet="Messagerie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messagerie_User" Association="Self.FK_Messagerie_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Messagerie" EntitySet="Messagerie" />
           </AssociationSet>
           <AssociationSet Name="FK_Offer_City" Association="Self.FK_Offer_City">
             <End Role="City" EntitySet="City" />
@@ -262,12 +347,20 @@
             <End Role="Producer" EntitySet="Producer" />
             <End Role="Offer" EntitySet="Offer" />
           </AssociationSet>
+          <AssociationSet Name="FK_Producer_Image" Association="Self.FK_Producer_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Producer" EntitySet="Producer" />
+          </AssociationSet>
           <AssociationSet Name="FK_Producer_Pack" Association="Self.FK_Producer_Pack">
             <End Role="Pack" EntitySet="Pack" />
             <End Role="Producer" EntitySet="Producer" />
           </AssociationSet>
           <AssociationSet Name="FK_User_City" Association="Self.FK_User_City">
             <End Role="City" EntitySet="City" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Image" Association="Self.FK_User_Image">
+            <End Role="Image" EntitySet="Image" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_UserOffer_Offer" Association="Self.FK_UserOffer_Offer">
@@ -334,6 +427,24 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserOffer" EntitySet="UserOffers" />
           </AssociationSet>
+          <EntitySet Name="Images" EntityType="MegaCastingModel.Image" />
+          <EntitySet Name="Messageries" EntityType="MegaCastingModel.Messagerie" />
+          <AssociationSet Name="FK_Producer_Image" Association="MegaCastingModel.FK_Producer_Image">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="Producer" EntitySet="Producers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Image" Association="MegaCastingModel.FK_User_Image">
+            <End Role="Image" EntitySet="Images" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messagerie_Producer" Association="MegaCastingModel.FK_Messagerie_Producer">
+            <End Role="Producer" EntitySet="Producers" />
+            <End Role="Messagerie" EntitySet="Messageries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Messagerie_User" Association="MegaCastingModel.FK_Messagerie_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Messagerie" EntitySet="Messageries" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="BroadcastPartner">
           <Key>
@@ -392,9 +503,9 @@
           <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Reference" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PublishDateTime" Type="DateTime" Precision="7" />
+          <Property Name="PublishDateTime" Type="DateTime" Precision="3" />
           <Property Name="Duration" Type="Int32" Nullable="false" />
-          <Property Name="StartContractDate" Type="DateTime" Precision="0" />
+          <Property Name="StartContractDate" Type="DateTime" Precision="3" />
           <Property Name="PostCount" Type="Int32" />
           <Property Name="JobDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="ProfilDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
@@ -432,6 +543,10 @@
           <Property Name="IdentifierPack" Type="Int64" />
           <NavigationProperty Name="Offers" Relationship="MegaCastingModel.FK_Offer_Producer" FromRole="Producer" ToRole="Offer" />
           <NavigationProperty Name="Pack" Relationship="MegaCastingModel.FK_Producer_Pack" FromRole="Producer" ToRole="Pack" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdentifierImage" Type="Int64" />
+          <NavigationProperty Name="Image" Relationship="MegaCastingModel.FK_Producer_Image" FromRole="Producer" ToRole="Image" />
+          <NavigationProperty Name="Messageries" Relationship="MegaCastingModel.FK_Messagerie_Producer" FromRole="Producer" ToRole="Messagerie" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -446,6 +561,14 @@
           <Property Name="IdentifierCity" Type="Int64" />
           <NavigationProperty Name="City" Relationship="MegaCastingModel.FK_User_City" FromRole="User" ToRole="City" />
           <NavigationProperty Name="UserOffers" Relationship="MegaCastingModel.FK_UserOffer_User" FromRole="User" ToRole="UserOffer" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Descritpion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IdentifierImage" Type="Int64" />
+          <NavigationProperty Name="Image" Relationship="MegaCastingModel.FK_User_Image" FromRole="User" ToRole="Image" />
+          <NavigationProperty Name="Messageries" Relationship="MegaCastingModel.FK_Messagerie_User" FromRole="User" ToRole="Messagerie" />
         </EntityType>
         <EntityType Name="UserOffer">
           <Key>
@@ -577,6 +700,77 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Identifier" />
+          </Key>
+          <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Format" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="Libelle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Producers" Relationship="MegaCastingModel.FK_Producer_Image" FromRole="Image" ToRole="Producer" />
+          <NavigationProperty Name="Users" Relationship="MegaCastingModel.FK_User_Image" FromRole="Image" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Messagerie">
+          <Key>
+            <PropertyRef Name="Identifier" />
+          </Key>
+          <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Texte" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="QuiEcrit" Type="Boolean" />
+          <Property Name="IdentifierUser" Type="Int64" Nullable="false" />
+          <Property Name="IdentifierProducer" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Producer" Relationship="MegaCastingModel.FK_Messagerie_Producer" FromRole="Messagerie" ToRole="Producer" />
+          <NavigationProperty Name="User" Relationship="MegaCastingModel.FK_Messagerie_User" FromRole="Messagerie" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Producer_Image">
+          <End Type="MegaCastingModel.Image" Role="Image" Multiplicity="0..1" />
+          <End Type="MegaCastingModel.Producer" Role="Producer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Identifier" />
+            </Principal>
+            <Dependent Role="Producer">
+              <PropertyRef Name="IdentifierImage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Image">
+          <End Type="MegaCastingModel.Image" Role="Image" Multiplicity="0..1" />
+          <End Type="MegaCastingModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Identifier" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdentifierImage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messagerie_Producer">
+          <End Type="MegaCastingModel.Producer" Role="Producer" Multiplicity="1" />
+          <End Type="MegaCastingModel.Messagerie" Role="Messagerie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producer">
+              <PropertyRef Name="Identifier" />
+            </Principal>
+            <Dependent Role="Messagerie">
+              <PropertyRef Name="IdentifierProducer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Messagerie_User">
+          <End Type="MegaCastingModel.User" Role="User" Multiplicity="1" />
+          <End Type="MegaCastingModel.Messagerie" Role="Messagerie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Identifier" />
+            </Principal>
+            <Dependent Role="Messagerie">
+              <PropertyRef Name="IdentifierUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -663,6 +857,8 @@
           <EntitySetMapping Name="Producers">
             <EntityTypeMapping TypeName="MegaCastingModel.Producer">
               <MappingFragment StoreEntitySet="Producer">
+                <ScalarProperty Name="IdentifierImage" ColumnName="IdentifierImage" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="IdentifierPack" ColumnName="IdentifierPack" />
                 <ScalarProperty Name="Salt" ColumnName="Salt" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -676,6 +872,12 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MegaCastingModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IdentifierImage" ColumnName="IdentifierImage" />
+                <ScalarProperty Name="Descritpion" ColumnName="Descritpion" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="IdentifierCity" ColumnName="IdentifierCity" />
                 <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="Salt" ColumnName="Salt" />
@@ -691,6 +893,27 @@
               <MappingFragment StoreEntitySet="UserOffer">
                 <ScalarProperty Name="IdentifierOffer" ColumnName="IdentifierOffer" />
                 <ScalarProperty Name="IdentifierUser" ColumnName="IdentifierUser" />
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="MegaCastingModel.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+                <ScalarProperty Name="Format" ColumnName="Format" />
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messageries">
+            <EntityTypeMapping TypeName="MegaCastingModel.Messagerie">
+              <MappingFragment StoreEntitySet="Messagerie">
+                <ScalarProperty Name="IdentifierProducer" ColumnName="IdentifierProducer" />
+                <ScalarProperty Name="IdentifierUser" ColumnName="IdentifierUser" />
+                <ScalarProperty Name="QuiEcrit" ColumnName="QuiEcrit" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Texte" ColumnName="Texte" />
                 <ScalarProperty Name="Identifier" ColumnName="Identifier" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -63,6 +63,9 @@
     <Compile Include="DomainJob.cs">
       <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Image.cs">
+      <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Job.cs">
       <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
     </Compile>
@@ -80,6 +83,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MegaCastingeEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Messagerie.cs">
+      <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Offer.cs">
       <DependentUpon>MegaCastingeEntities.tt</DependentUpon>

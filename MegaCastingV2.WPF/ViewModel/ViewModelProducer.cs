@@ -80,6 +80,7 @@ namespace MegaCastingV2.WPF.ViewModel
         }
 
         #endregion
+
         #region Methods
             /// <summary>
             /// Permet d'ajouter un producer 

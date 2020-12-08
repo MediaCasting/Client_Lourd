@@ -35,5 +35,7 @@ namespace MegaCastingV2.DBlib
         public virtual DbSet<Producer> Producers { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserOffer> UserOffers { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<Messagerie> Messageries { get; set; }
     }
 }

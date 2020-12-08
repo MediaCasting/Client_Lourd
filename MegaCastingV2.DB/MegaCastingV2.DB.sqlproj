@@ -59,6 +59,7 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="Scripts" />
+    <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Producer.sql" />
@@ -69,8 +70,13 @@
     <Build Include="dbo\Tables\BroadcastPartner.sql" />
     <Build Include="dbo\Tables\UserOffer.sql" />
     <Build Include="dbo\Tables\User.sql" />
-    <Build Include="dbo\Tables\JobLevelRequired.sql" />
     <Build Include="dbo\Tables\City.sql" />
     <Build Include="Scripts\InsertData.sql" />
+    <Build Include="dbo\Tables\Messagerie.sql" />
+    <Build Include="dbo\Tables\Image.sql" />
+    <Build Include="dbo\Tables\DomainJob.sql" />
+    <Build Include="Security\PPE.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="Security\test.sql" />
   </ItemGroup>
 </Project>

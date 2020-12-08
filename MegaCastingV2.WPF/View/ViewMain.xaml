@@ -40,9 +40,9 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
                 <Grid Margin="20 0" Grid.Row="0">
-                    <TextBlock
+                    <Label
                         Margin="0 7 0 0"
-                        Style="{StaticResource MaterialDesignHeadline3TextBlock}">480</TextBlock>
+                        Content="{Binding NbrOffer}"></Label>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>

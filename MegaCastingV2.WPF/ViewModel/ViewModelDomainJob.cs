@@ -127,7 +127,7 @@ namespace MegaCastingV2.WPF.ViewModel
             }
 
             //Si il y a un Secteur d'activité faire ceci
-            else if(!SelectedDomainJob.Jobs.Any())
+            else if(SelectedDomainJob.Jobs.Any())
             {
                 //Demande de Suppression 
                 MessageBoxResult result = MessageBox.Show("Souhaitez-vous confimer la suppression", "Suppresion le secteur d'activité", MessageBoxButton.YesNo);

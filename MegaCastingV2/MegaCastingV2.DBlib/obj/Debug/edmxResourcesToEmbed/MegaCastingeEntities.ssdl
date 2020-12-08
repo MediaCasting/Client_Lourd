@@ -34,6 +34,14 @@
     <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Format" Type="char" MaxLength="4" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="Job">
     <Key>
       <PropertyRef Name="Identifier" />
@@ -42,6 +50,17 @@
     <Property Name="Name" Type="nchar" MaxLength="50" />
     <Property Name="IdentifierDomainJob" Type="bigint" />
   </EntityType>
+  <EntityType Name="Messagerie">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Texte" Type="nvarchar" MaxLength="500" />
+    <Property Name="Date" Type="date" />
+    <Property Name="QuiEcrit" Type="bit" />
+    <Property Name="IdentifierUser" Type="bigint" Nullable="false" />
+    <Property Name="IdentifierProducer" Type="bigint" Nullable="false" />
+  </EntityType>
   <EntityType Name="Offer">
     <Key>
       <PropertyRef Name="Identifier" />
@@ -49,9 +68,9 @@
     <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Reference" Type="nvarchar" MaxLength="50" />
-    <Property Name="PublishDateTime" Type="datetime2" Precision="7" />
+    <Property Name="PublishDateTime" Type="datetime" />
     <Property Name="Duration" Type="int" Nullable="false" />
-    <Property Name="StartContractDate" Type="date" />
+    <Property Name="StartContractDate" Type="datetime" />
     <Property Name="PostCount" Type="int" />
     <Property Name="JobDescription" Type="nvarchar" MaxLength="2000" />
     <Property Name="ProfilDescription" Type="nvarchar" MaxLength="2000" />
@@ -80,19 +99,27 @@
     <Property Name="LastName" Type="nvarchar" MaxLength="50" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
     <Property Name="Salt" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
     <Property Name="IdentifierPack" Type="bigint" />
+    <Property Name="IdentifierImage" Type="bigint" />
   </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="Identifier" />
     </Key>
     <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" />
     <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
     <Property Name="LastName" Type="nvarchar" MaxLength="50" />
     <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="int" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Age" Type="int" />
     <Property Name="Salt" Type="nvarchar" MaxLength="50" />
     <Property Name="IsAdmin" Type="tinyint" />
+    <Property Name="Descritpion" Type="nvarchar" MaxLength="100" />
     <Property Name="IdentifierCity" Type="bigint" />
+    <Property Name="IdentifierImage" Type="bigint" />
   </EntityType>
   <EntityType Name="UserOffer">
     <Key>
@@ -123,6 +150,30 @@
       </Principal>
       <Dependent Role="Job">
         <PropertyRef Name="IdentifierDomainJob" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messagerie_Producer">
+    <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
+    <End Role="Messagerie" Type="Self.Messagerie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producer">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Messagerie">
+        <PropertyRef Name="IdentifierProducer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messagerie_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Messagerie" Type="Self.Messagerie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Messagerie">
+        <PropertyRef Name="IdentifierUser" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -174,6 +225,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Producer_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+    <End Role="Producer" Type="Self.Producer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Producer">
+        <PropertyRef Name="IdentifierImage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Producer_Pack">
     <End Role="Pack" Type="Self.Pack" Multiplicity="0..1" />
     <End Role="Producer" Type="Self.Producer" Multiplicity="*" />
@@ -195,6 +258,18 @@
       </Principal>
       <Dependent Role="User">
         <PropertyRef Name="IdentifierCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdentifierImage" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -227,7 +302,9 @@
     <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContractType" EntityType="Self.ContractType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DomainJob" EntityType="Self.DomainJob" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messagerie" EntityType="Self.Messagerie" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Offer" EntityType="Self.Offer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pack" EntityType="Self.Pack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
@@ -240,6 +317,14 @@
     <AssociationSet Name="FK_Job_DomainJob" Association="Self.FK_Job_DomainJob">
       <End Role="DomainJob" EntitySet="DomainJob" />
       <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messagerie_Producer" Association="Self.FK_Messagerie_Producer">
+      <End Role="Producer" EntitySet="Producer" />
+      <End Role="Messagerie" EntitySet="Messagerie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messagerie_User" Association="Self.FK_Messagerie_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Messagerie" EntitySet="Messagerie" />
     </AssociationSet>
     <AssociationSet Name="FK_Offer_City" Association="Self.FK_Offer_City">
       <End Role="City" EntitySet="City" />
@@ -257,12 +342,20 @@
       <End Role="Producer" EntitySet="Producer" />
       <End Role="Offer" EntitySet="Offer" />
     </AssociationSet>
+    <AssociationSet Name="FK_Producer_Image" Association="Self.FK_Producer_Image">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Producer" EntitySet="Producer" />
+    </AssociationSet>
     <AssociationSet Name="FK_Producer_Pack" Association="Self.FK_Producer_Pack">
       <End Role="Pack" EntitySet="Pack" />
       <End Role="Producer" EntitySet="Producer" />
     </AssociationSet>
     <AssociationSet Name="FK_User_City" Association="Self.FK_User_City">
       <End Role="City" EntitySet="City" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Image" Association="Self.FK_User_Image">
+      <End Role="Image" EntitySet="Image" />
       <End Role="User" EntitySet="User" />
     </AssociationSet>
     <AssociationSet Name="FK_UserOffer_Offer" Association="Self.FK_UserOffer_Offer">

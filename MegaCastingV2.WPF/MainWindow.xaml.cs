@@ -45,6 +45,8 @@ namespace MegaCastingV2.WPF
             #if RELEASE
                 this.Entities.ContractTypes.FirstOrDefault();
             #endif
+
+
         }
 
         /// <summary>

@@ -51,6 +51,24 @@
       <End Role="User" EntitySet="Users" />
       <End Role="UserOffer" EntitySet="UserOffers" />
     </AssociationSet>
+    <EntitySet Name="Images" EntityType="MegaCastingModel.Image" />
+    <EntitySet Name="Messageries" EntityType="MegaCastingModel.Messagerie" />
+    <AssociationSet Name="FK_Producer_Image" Association="MegaCastingModel.FK_Producer_Image">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="Producer" EntitySet="Producers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Image" Association="MegaCastingModel.FK_User_Image">
+      <End Role="Image" EntitySet="Images" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messagerie_Producer" Association="MegaCastingModel.FK_Messagerie_Producer">
+      <End Role="Producer" EntitySet="Producers" />
+      <End Role="Messagerie" EntitySet="Messageries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messagerie_User" Association="MegaCastingModel.FK_Messagerie_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Messagerie" EntitySet="Messageries" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="BroadcastPartner">
     <Key>
@@ -109,9 +127,9 @@
     <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Reference" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="PublishDateTime" Type="DateTime" Precision="7" />
+    <Property Name="PublishDateTime" Type="DateTime" Precision="3" />
     <Property Name="Duration" Type="Int32" Nullable="false" />
-    <Property Name="StartContractDate" Type="DateTime" Precision="0" />
+    <Property Name="StartContractDate" Type="DateTime" Precision="3" />
     <Property Name="PostCount" Type="Int32" />
     <Property Name="JobDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
     <Property Name="ProfilDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
@@ -149,6 +167,10 @@
     <Property Name="IdentifierPack" Type="Int64" />
     <NavigationProperty Name="Offers" Relationship="MegaCastingModel.FK_Offer_Producer" FromRole="Producer" ToRole="Offer" />
     <NavigationProperty Name="Pack" Relationship="MegaCastingModel.FK_Producer_Pack" FromRole="Producer" ToRole="Pack" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdentifierImage" Type="Int64" />
+    <NavigationProperty Name="Image" Relationship="MegaCastingModel.FK_Producer_Image" FromRole="Producer" ToRole="Image" />
+    <NavigationProperty Name="Messageries" Relationship="MegaCastingModel.FK_Messagerie_Producer" FromRole="Producer" ToRole="Messagerie" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -163,6 +185,14 @@
     <Property Name="IdentifierCity" Type="Int64" />
     <NavigationProperty Name="City" Relationship="MegaCastingModel.FK_User_City" FromRole="User" ToRole="City" />
     <NavigationProperty Name="UserOffers" Relationship="MegaCastingModel.FK_UserOffer_User" FromRole="User" ToRole="UserOffer" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Descritpion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IdentifierImage" Type="Int64" />
+    <NavigationProperty Name="Image" Relationship="MegaCastingModel.FK_User_Image" FromRole="User" ToRole="Image" />
+    <NavigationProperty Name="Messageries" Relationship="MegaCastingModel.FK_Messagerie_User" FromRole="User" ToRole="Messagerie" />
   </EntityType>
   <EntityType Name="UserOffer">
     <Key>
@@ -290,6 +320,77 @@
         <PropertyRef Name="Identifier" />
       </Principal>
       <Dependent Role="UserOffer">
+        <PropertyRef Name="IdentifierUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Format" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Producers" Relationship="MegaCastingModel.FK_Producer_Image" FromRole="Image" ToRole="Producer" />
+    <NavigationProperty Name="Users" Relationship="MegaCastingModel.FK_User_Image" FromRole="Image" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Messagerie">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Texte" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="QuiEcrit" Type="Boolean" />
+    <Property Name="IdentifierUser" Type="Int64" Nullable="false" />
+    <Property Name="IdentifierProducer" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Producer" Relationship="MegaCastingModel.FK_Messagerie_Producer" FromRole="Messagerie" ToRole="Producer" />
+    <NavigationProperty Name="User" Relationship="MegaCastingModel.FK_Messagerie_User" FromRole="Messagerie" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Producer_Image">
+    <End Type="MegaCastingModel.Image" Role="Image" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.Producer" Role="Producer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Producer">
+        <PropertyRef Name="IdentifierImage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Image">
+    <End Type="MegaCastingModel.Image" Role="Image" Multiplicity="0..1" />
+    <End Type="MegaCastingModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdentifierImage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messagerie_Producer">
+    <End Type="MegaCastingModel.Producer" Role="Producer" Multiplicity="1" />
+    <End Type="MegaCastingModel.Messagerie" Role="Messagerie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producer">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Messagerie">
+        <PropertyRef Name="IdentifierProducer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messagerie_User">
+    <End Type="MegaCastingModel.User" Role="User" Multiplicity="1" />
+    <End Type="MegaCastingModel.Messagerie" Role="Messagerie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Messagerie">
         <PropertyRef Name="IdentifierUser" />
       </Dependent>
     </ReferentialConstraint>

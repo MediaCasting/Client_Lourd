@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="43d0ebbf483b4d8ea04367f6c94bf3cf" Name="Diagram1">
-        <EntityTypeShape EntityType="MegaCastingModel.BroadcastPartner" Width="1.5" PointX="3" PointY="4.125" />
+      <Diagram DiagramId="43d0ebbf483b4d8ea04367f6c94bf3cf" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="MegaCastingModel.BroadcastPartner" Width="1.5" PointX="2.75" PointY="3.125" />
         <EntityTypeShape EntityType="MegaCastingModel.City" Width="1.5" PointX="0.75" PointY="6" />
         <EntityTypeShape EntityType="MegaCastingModel.ContractType" Width="1.5" PointX="3.75" PointY="8" />
-        <EntityTypeShape EntityType="MegaCastingModel.DomainJob" Width="1.5" PointX="1.5" PointY="1.375" />
-        <EntityTypeShape EntityType="MegaCastingModel.Job" Width="1.5" PointX="3.75" PointY="1.25" />
-        <EntityTypeShape EntityType="MegaCastingModel.Offer" Width="1.5" PointX="6" PointY="4.75" />
-        <EntityTypeShape EntityType="MegaCastingModel.Pack" Width="1.5" PointX="1.5" PointY="17.625" />
-        <EntityTypeShape EntityType="MegaCastingModel.Producer" Width="1.5" PointX="3.75" PointY="17.25" />
-        <EntityTypeShape EntityType="MegaCastingModel.User" Width="1.5" PointX="3" PointY="12.875" />
-        <EntityTypeShape EntityType="MegaCastingModel.UserOffer" Width="1.5" PointX="8.25" PointY="9.25" />
+        <EntityTypeShape EntityType="MegaCastingModel.DomainJob" Width="1.5" PointX="10.125" PointY="1.75" />
+        <EntityTypeShape EntityType="MegaCastingModel.Job" Width="1.5" PointX="7.125" PointY="1.875" />
+        <EntityTypeShape EntityType="MegaCastingModel.Offer" Width="1.5" PointX="7.125" PointY="4.75" />
+        <EntityTypeShape EntityType="MegaCastingModel.Pack" Width="1.5" PointX="14.125" PointY="3.75" />
+        <EntityTypeShape EntityType="MegaCastingModel.Producer" Width="1.5" PointX="11.875" PointY="3.5" />
+        <EntityTypeShape EntityType="MegaCastingModel.User" Width="1.5" PointX="14.125" PointY="7.875" />
+        <EntityTypeShape EntityType="MegaCastingModel.UserOffer" Width="1.5" PointX="10.25" PointY="6.625" />
         <AssociationConnector Association="MegaCastingModel.FK_BroadcastPartner_City" />
         <AssociationConnector Association="MegaCastingModel.FK_Offer_City" />
         <AssociationConnector Association="MegaCastingModel.FK_User_City" />
@@ -25,6 +25,12 @@
         <AssociationConnector Association="MegaCastingModel.FK_UserOffer_Offer" />
         <AssociationConnector Association="MegaCastingModel.FK_Producer_Pack" />
         <AssociationConnector Association="MegaCastingModel.FK_UserOffer_User" />
+        <EntityTypeShape EntityType="MegaCastingModel.Image" Width="1.5" PointX="9.625" PointY="9.875" />
+        <EntityTypeShape EntityType="MegaCastingModel.Messagerie" Width="1.5" PointX="16.375" PointY="6.5" />
+        <AssociationConnector Association="MegaCastingModel.FK_Producer_Image" />
+        <AssociationConnector Association="MegaCastingModel.FK_User_Image" />
+        <AssociationConnector Association="MegaCastingModel.FK_Messagerie_Producer" />
+        <AssociationConnector Association="MegaCastingModel.FK_Messagerie_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
