@@ -17,7 +17,7 @@ namespace MegaCastingV2.DBlib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Offer()
         {
-            this.UserOffers = new HashSet<UserOffer>();
+            this.ArtistOffers = new HashSet<ArtistOffer>();
         }
     
         public long Identifier { get; set; }
@@ -35,11 +35,11 @@ namespace MegaCastingV2.DBlib
         public Nullable<long> IdentifierJob { get; set; }
         public Nullable<long> IdentifierContractType { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ArtistOffer> ArtistOffers { get; set; }
         public virtual City City { get; set; }
         public virtual ContractType ContractType { get; set; }
         public virtual Job Job { get; set; }
         public virtual Producer Producer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserOffer> UserOffers { get; set; }
     }
 }

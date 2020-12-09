@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MegaCastingV2.WPF.ViewModel
 {
@@ -85,21 +86,44 @@ namespace MegaCastingV2.WPF.ViewModel
             /// <summary>
             /// Permet d'ajouter un producer 
             /// </summary>
-            public void AddProducer()
+            public void AddProducer(string companyName, string firstName, string lastName, int pack)
             {
-                //Vérification de validité
-                if (!this.Entities.Producers
-                    .Any(type => type.CompanyName == "Nouvelle Compagnie")
-                    )
+                //Vérification d'existence des champ 
+                if (companyName.Any() && firstName.Any() && lastName.Any())
                 {
-                //Ajout du nouveau producer
-                    Producer producer = new Producer();
-                    producer.CompanyName = "Nouvelle Compagnie";
-                    this.Producers.Add(producer);
+                    //Vérification -> Le producteur existe déjà ?
+                    if (!this.Entities.Producers.Any(type => type.CompanyName == companyName))
+                    {
+                        //Demande d'ajout
+                        MessageBoxResult result = MessageBox.Show("Souhaitez-vous confirmer l'ajout", "Ajout d'un producteur", MessageBoxButton.YesNo);
+                        
+                        //Ajout d'un métier
+                        if (result == MessageBoxResult.Yes)
+                        {
 
-                    this.UpdateProducer();
-                    this.SelectedProducer = producer;
+                            Producer producer = new Producer();
+                            producer.CompanyName = companyName;
+                            producer.FirstName = firstName;
+                            producer.LastName = lastName;
+                            producer.IdentifierPack = pack;
+
+
+                            this.Producers.Add(producer);
+
+                            this.Entities.SaveChanges();
+                            this.SelectedProducer = producer;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Le producteur existe déjà !");
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("Veulliez enseigner un Nom de compagnie");
+                }
+
             }
 
             /// <summary>
@@ -116,10 +140,36 @@ namespace MegaCastingV2.WPF.ViewModel
             /// </summary>
             public void DeleteProducer()
             {
-                //TODO : Vérifs
+            //TODO : Vérifs
+                //Vérrification d'existence pour le supprimer
+                if (SelectedProducer == null)
+                {
+                    MessageBox.Show("Vous devez selectionner un producteur pour le supprimer");
+                }
 
-                // Suppression de l'élément
-                this.Producers.Remove(SelectedProducer);
+
+                //Si il y a un producteur faire ceci 
+                else if (!SelectedProducer.Offers.Any())
+                {
+                    //Demande de Suppression 
+                    MessageBoxResult result = MessageBox.Show("Souhaitez-vous confimer la suppression", "Suppresion du producteur", MessageBoxButton.YesNo);
+                    //Suppression d'un métier
+                    if (result == MessageBoxResult.Yes)
+                    {
+
+                        // Suppression de l'élément
+                        this.Entities.Producers.Remove(SelectedProducer);
+                        this.Entities.SaveChanges();
+                        this.Producers.Remove(SelectedProducer);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vous ne pouvez pas supprimer car il existe encore au moins une offre lier à ce producteur");
+                }
+
+            // Suppression de l'élément
+            this.Producers.Remove(SelectedProducer);
                 this.UpdateProducer();
             }
         #endregion

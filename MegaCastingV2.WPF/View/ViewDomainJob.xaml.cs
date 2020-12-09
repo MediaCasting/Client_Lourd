@@ -80,10 +80,6 @@ namespace MegaCastingV2.WPF.View
             ListBoxDomainJob.UnselectAll();
 
         }
-        private void Nom_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
     }
 }

@@ -153,7 +153,7 @@
 
                     <!-- #region Ligne 3-->
                     <Grid Grid.Row="5" Grid.Column="0">
-                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="NombrePoste" Text="{Binding SelectedOffer.PostCount}" materialDesign:HintAssist.Hint="Nombre de Poste :"></TextBox>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="NombrePoste" Text="{Binding SelectedOffer.PostCount}" materialDesign:HintAssist.Hint="Nombre de Poste :" PreviewTextInput="NumberValidationTextBox"></TextBox>
                     </Grid>
                     <Grid Grid.Row="5" Grid.Column="2">
                         <TextBox Grid.Row="0" Grid.Column="1" x:Name="Rue" Text="{Binding SelectedOffer.Street}" materialDesign:HintAssist.Hint="Rue :"></TextBox>
@@ -174,7 +174,7 @@
                         <DatePicker Grid.Row="0" Grid.Column="1" x:Name="DateDébut" Text="{Binding SelectedOffer.StartContractDate}" materialDesign:HintAssist.Hint="Date Début :"></DatePicker>
                     </Grid>
                     <Grid Grid.Row="9" Grid.Column="2" Background="BlanchedAlmond">
-                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="Durée" Text="{Binding SelectedOffer.Duration}" materialDesign:HintAssist.Hint="Durée Contrat :"></TextBox>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="Durée" Text="{Binding SelectedOffer.Duration}" materialDesign:HintAssist.Hint="Durée Contrat :" PreviewTextInput="NumberValidationTextBox"></TextBox>
                     </Grid>
                     <!--#endregion-->
 

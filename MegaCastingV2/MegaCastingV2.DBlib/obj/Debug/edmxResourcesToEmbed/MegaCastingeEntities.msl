@@ -1,6 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="MegaCastingModelStoreContainer" CdmEntityContainer="MegaCastingEntities">
+    <EntitySetMapping Name="Artists">
+      <EntityTypeMapping TypeName="MegaCastingModel.Artist">
+        <MappingFragment StoreEntitySet="Artist">
+          <ScalarProperty Name="IdentifierImage" ColumnName="IdentifierImage" />
+          <ScalarProperty Name="IdentifierCity" ColumnName="IdentifierCity" />
+          <ScalarProperty Name="Descritpion" ColumnName="Descritpion" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ArtistOffers">
+      <EntityTypeMapping TypeName="MegaCastingModel.ArtistOffer">
+        <MappingFragment StoreEntitySet="ArtistOffer">
+          <ScalarProperty Name="IdentifierOffer" ColumnName="IdentifierOffer" />
+          <ScalarProperty Name="IdentifierArtist" ColumnName="IdentifierArtist" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="BroadcastPartners">
       <EntityTypeMapping TypeName="MegaCastingModel.BroadcastPartner">
         <MappingFragment StoreEntitySet="BroadcastPartner">
@@ -39,11 +65,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="MegaCastingModel.Image">
+        <MappingFragment StoreEntitySet="Image">
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Format" ColumnName="Format" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Jobs">
       <EntityTypeMapping TypeName="MegaCastingModel.Job">
         <MappingFragment StoreEntitySet="Job">
           <ScalarProperty Name="IdentifierDomainJob" ColumnName="IdentifierDomainJob" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messageries">
+      <EntityTypeMapping TypeName="MegaCastingModel.Messagerie">
+        <MappingFragment StoreEntitySet="Messagerie">
+          <ScalarProperty Name="IdentifierProducer" ColumnName="IdentifierProducer" />
+          <ScalarProperty Name="IdentifierArtist" ColumnName="IdentifierArtist" />
+          <ScalarProperty Name="QuiEcrit" ColumnName="QuiEcrit" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Texte" ColumnName="Texte" />
           <ScalarProperty Name="Identifier" ColumnName="Identifier" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -82,62 +129,13 @@
       <EntityTypeMapping TypeName="MegaCastingModel.Producer">
         <MappingFragment StoreEntitySet="Producer">
           <ScalarProperty Name="IdentifierImage" ColumnName="IdentifierImage" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="IdentifierPack" ColumnName="IdentifierPack" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Salt" ColumnName="Salt" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="MegaCastingModel.User">
-        <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="IdentifierImage" ColumnName="IdentifierImage" />
-          <ScalarProperty Name="Descritpion" ColumnName="Descritpion" />
-          <ScalarProperty Name="Age" ColumnName="Age" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Login" ColumnName="Login" />
-          <ScalarProperty Name="IdentifierCity" ColumnName="IdentifierCity" />
-          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-          <ScalarProperty Name="Salt" ColumnName="Salt" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserOffers">
-      <EntityTypeMapping TypeName="MegaCastingModel.UserOffer">
-        <MappingFragment StoreEntitySet="UserOffer">
-          <ScalarProperty Name="IdentifierOffer" ColumnName="IdentifierOffer" />
-          <ScalarProperty Name="IdentifierUser" ColumnName="IdentifierUser" />
-          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Images">
-      <EntityTypeMapping TypeName="MegaCastingModel.Image">
-        <MappingFragment StoreEntitySet="Image">
-          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
-          <ScalarProperty Name="Format" ColumnName="Format" />
-          <ScalarProperty Name="Identifier" ColumnName="Identifier" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Messageries">
-      <EntityTypeMapping TypeName="MegaCastingModel.Messagerie">
-        <MappingFragment StoreEntitySet="Messagerie">
-          <ScalarProperty Name="IdentifierProducer" ColumnName="IdentifierProducer" />
-          <ScalarProperty Name="IdentifierUser" ColumnName="IdentifierUser" />
-          <ScalarProperty Name="QuiEcrit" ColumnName="QuiEcrit" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Texte" ColumnName="Texte" />
           <ScalarProperty Name="Identifier" ColumnName="Identifier" />
         </MappingFragment>
       </EntityTypeMapping>

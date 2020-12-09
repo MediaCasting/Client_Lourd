@@ -37,7 +37,7 @@ namespace MegaCastingV2.WPF.View
         {
             //TODO : Vérifs
 
-            ((ViewModelProducer)this.DataContext).AddProducer();
+            ((ViewModelProducer)this.DataContext).AddProducer(this.CompanyName.Text, this.FirstName.Text, this.LastName.Text, this.ComboBoxPack.SelectedIndex);
 
         }
 

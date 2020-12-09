@@ -78,5 +78,7 @@
     <Build Include="Security\PPE.sql" />
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="Security\test.sql" />
+    <Build Include="dbo\Tables\ArtistOffer_1.sql" />
+    <Build Include="dbo\Tables\Artist_1.sql" />
   </ItemGroup>
 </Project>

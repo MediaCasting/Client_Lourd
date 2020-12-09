@@ -35,10 +35,18 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageInsert_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
-
-            ((ViewModelJob)this.DataContext).AddJob();
+            //Vérification de validité
+            if ( ListBoxJob.SelectedItem == null)
+            {
+                ((ViewModelJob)this.DataContext).AddJob(this.NameJob.Text, this.ComboBoxJob.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Impossible d'ajouter un type de contrat à partir d'un métier existant");
+            }
+            
         }
+
         /// <summary>
         /// Affecte la fonction DeleteJob au bouton Delete
         /// </summary>

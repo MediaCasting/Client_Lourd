@@ -18,10 +18,10 @@ namespace MegaCastingV2.DBlib
         public string Texte { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<bool> QuiEcrit { get; set; }
-        public long IdentifierUser { get; set; }
+        public long IdentifierArtist { get; set; }
         public long IdentifierProducer { get; set; }
     
+        public virtual Artist Artist { get; set; }
         public virtual Producer Producer { get; set; }
-        public virtual User User { get; set; }
     }
 }

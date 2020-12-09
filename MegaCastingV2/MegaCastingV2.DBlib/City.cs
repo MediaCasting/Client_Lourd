@@ -17,9 +17,9 @@ namespace MegaCastingV2.DBlib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public City()
         {
+            this.Artists = new HashSet<Artist>();
             this.BroadcastPartners = new HashSet<BroadcastPartner>();
             this.Offers = new HashSet<Offer>();
-            this.Users = new HashSet<User>();
         }
     
         public long Identifier { get; set; }
@@ -27,10 +27,10 @@ namespace MegaCastingV2.DBlib
         public Nullable<int> ZipCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Artist> Artists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BroadcastPartner> BroadcastPartners { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Offer> Offers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
     }
 }

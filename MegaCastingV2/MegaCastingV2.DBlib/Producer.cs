@@ -17,8 +17,8 @@ namespace MegaCastingV2.DBlib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Producer()
         {
-            this.Offers = new HashSet<Offer>();
             this.Messageries = new HashSet<Messagerie>();
+            this.Offers = new HashSet<Offer>();
         }
     
         public long Identifier { get; set; }
@@ -27,15 +27,15 @@ namespace MegaCastingV2.DBlib
         public string LastName { get; set; }
         public string Password { get; set; }
         public string Salt { get; set; }
-        public Nullable<long> IdentifierPack { get; set; }
         public string Email { get; set; }
+        public Nullable<long> IdentifierPack { get; set; }
         public Nullable<long> IdentifierImage { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Offer> Offers { get; set; }
-        public virtual Pack Pack { get; set; }
         public virtual Image Image { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Messagerie> Messageries { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Offer> Offers { get; set; }
+        public virtual Pack Pack { get; set; }
     }
 }

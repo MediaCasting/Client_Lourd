@@ -82,7 +82,7 @@ namespace MegaCastingV2.WPF.ViewModel
                 if ( !this.Entities.ContractTypes.Any(type => type.Name == text))
                 {
                     //Demande d'ajout
-                    MessageBoxResult result = MessageBox.Show("Souhaitez-vous confirmer l'ajout", "Ajout d'un type de job", MessageBoxButton.YesNo);
+                    MessageBoxResult result = MessageBox.Show("Souhaitez-vous confirmer l'ajout", "Ajout d'un type de contrat", MessageBoxButton.YesNo);
                     //Ajout d'un nouveau contractType
                     if (result == MessageBoxResult.Yes)
                     {
@@ -114,17 +114,18 @@ namespace MegaCastingV2.WPF.ViewModel
         public void UpdateContractType(string text)
         {
             //Vérification de validité pour mettre a jour le ContractType 
-            if (SelectedContractType != null 
-                && !this.Entities.ContractTypes.Any(type => type.Name == text))
+            if (SelectedContractType != null &&
+                !this.Entities.ContractTypes.Any(type => type.Name == text))
             {
                 ContractType contractType = new ContractType();
                 contractType.Name = text;
+
                 
                 this.Entities.SaveChanges();
             }
             else
             {
-                MessageBox.Show("Aucune modification efféctuée");
+                MessageBox.Show("Une erreur est survenu !");
             }
         }
 

@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Artist.cs">
+      <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArtistOffer.cs">
+      <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="BroadcastPartner.cs">
       <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
     </Compile>
@@ -98,12 +104,6 @@
       <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs">
-      <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserOffer.cs">
-      <DependentUpon>MegaCastingeEntities.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="MegaCastingeEntities.edmx">

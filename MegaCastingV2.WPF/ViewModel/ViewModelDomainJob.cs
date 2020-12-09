@@ -61,7 +61,10 @@ namespace MegaCastingV2.WPF.ViewModel
 
         #region Methods
 
-        //Ajout d'un DomainJob
+        /// <summary>
+        /// Permet l'ajout d'un type d'un secteur d'activité
+        /// </summary>
+        /// <param name="text">Text saisie</param>
         public void AddDomainJob(string text)
         {
             //Vérification d'existance de champ
@@ -111,23 +114,26 @@ namespace MegaCastingV2.WPF.ViewModel
                 this.Entities.SaveChanges();
 
             }
+            else
+            {
+                MessageBox.Show("Aucune modification efféctuée");
+            }
 
         }
 
         /// <summary>
-        /// Permet de supprimer un DomainJob
+        /// Permet de supprimer un Secteur d'activité
         /// </summary>
         public void DeleteDomainJob()
         {
             //Vérrification d'existence pour le supprimer
-
             if (SelectedDomainJob == null)
             {
                 MessageBox.Show("Vous devez selectionner un secteur d'activité pour le supprimer");
             }
 
             //Si il y a un Secteur d'activité faire ceci
-            else if(SelectedDomainJob.Jobs.Any())
+            else if(!SelectedDomainJob.Jobs.Any())
             {
                 //Demande de Suppression 
                 MessageBoxResult result = MessageBox.Show("Souhaitez-vous confimer la suppression", "Suppresion le secteur d'activité", MessageBoxButton.YesNo);
@@ -140,13 +146,13 @@ namespace MegaCastingV2.WPF.ViewModel
                     this.Entities.SaveChanges();
                     this.DomainJobs.Remove(SelectedDomainJob);
                 }
-                else
-                {
+            }
+            else
+            {
                 MessageBox.Show("Vous ne pouvez pas supprimer car il existe encore au moins une métier lier à ce secteur d'activité !");
-                }
             }
 
-            
+
         }
 
         #endregion

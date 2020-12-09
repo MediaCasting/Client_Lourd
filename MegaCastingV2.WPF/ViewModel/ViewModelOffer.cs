@@ -168,6 +168,8 @@ namespace MegaCastingV2.WPF.ViewModel
                 this.Offers.Remove(SelectedOffer);
                 this.UpdateOffer();
             }
+
+            
         #endregion
     }
 }

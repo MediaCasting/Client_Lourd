@@ -17,8 +17,8 @@ namespace MegaCastingV2.DBlib
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Image()
         {
+            this.Artists = new HashSet<Artist>();
             this.Producers = new HashSet<Producer>();
-            this.Users = new HashSet<User>();
         }
     
         public long Identifier { get; set; }
@@ -26,8 +26,8 @@ namespace MegaCastingV2.DBlib
         public string Libelle { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Producer> Producers { get; set; }
+        public virtual ICollection<Artist> Artists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Producer> Producers { get; set; }
     }
 }

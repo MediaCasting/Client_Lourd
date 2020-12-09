@@ -1,5 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MegaCastingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Artist">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="int" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Age" Type="int" />
+    <Property Name="Descritpion" Type="nvarchar" MaxLength="100" />
+    <Property Name="IdentifierCity" Type="bigint" />
+    <Property Name="IdentifierImage" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ArtistOffer">
+    <Key>
+      <PropertyRef Name="Identifier" />
+    </Key>
+    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdentifierArtist" Type="bigint" Nullable="false" />
+    <Property Name="IdentifierOffer" Type="bigint" Nullable="false" />
+  </EntityType>
   <EntityType Name="BroadcastPartner">
     <Key>
       <PropertyRef Name="Identifier" />
@@ -58,7 +82,7 @@
     <Property Name="Texte" Type="nvarchar" MaxLength="500" />
     <Property Name="Date" Type="date" />
     <Property Name="QuiEcrit" Type="bit" />
-    <Property Name="IdentifierUser" Type="bigint" Nullable="false" />
+    <Property Name="IdentifierArtist" Type="bigint" Nullable="false" />
     <Property Name="IdentifierProducer" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="Offer">
@@ -103,32 +127,54 @@
     <Property Name="IdentifierPack" Type="bigint" />
     <Property Name="IdentifierImage" Type="bigint" />
   </EntityType>
-  <EntityType Name="User">
-    <Key>
-      <PropertyRef Name="Identifier" />
-    </Key>
-    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Login" Type="nvarchar" MaxLength="50" />
-    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
-    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-    <Property Name="Password" Type="nvarchar" MaxLength="50" />
-    <Property Name="Phone" Type="int" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" />
-    <Property Name="Age" Type="int" />
-    <Property Name="Salt" Type="nvarchar" MaxLength="50" />
-    <Property Name="IsAdmin" Type="tinyint" />
-    <Property Name="Descritpion" Type="nvarchar" MaxLength="100" />
-    <Property Name="IdentifierCity" Type="bigint" />
-    <Property Name="IdentifierImage" Type="bigint" />
-  </EntityType>
-  <EntityType Name="UserOffer">
-    <Key>
-      <PropertyRef Name="Identifier" />
-    </Key>
-    <Property Name="Identifier" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IdentifierUser" Type="bigint" Nullable="false" />
-    <Property Name="IdentifierOffer" Type="bigint" Nullable="false" />
-  </EntityType>
+  <Association Name="FK_Artist_City">
+    <End Role="City" Type="Self.City" Multiplicity="0..1" />
+    <End Role="Artist" Type="Self.Artist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Artist">
+        <PropertyRef Name="IdentifierCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Artist_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
+    <End Role="Artist" Type="Self.Artist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Artist">
+        <PropertyRef Name="IdentifierImage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArtistOffer_Artist">
+    <End Role="Artist" Type="Self.Artist" Multiplicity="1" />
+    <End Role="ArtistOffer" Type="Self.ArtistOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="ArtistOffer">
+        <PropertyRef Name="IdentifierArtist" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArtistOffer_Offer">
+    <End Role="Offer" Type="Self.Offer" Multiplicity="1" />
+    <End Role="ArtistOffer" Type="Self.ArtistOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Offer">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="ArtistOffer">
+        <PropertyRef Name="IdentifierOffer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_BroadcastPartner_City">
     <End Role="City" Type="Self.City" Multiplicity="0..1" />
     <End Role="BroadcastPartner" Type="Self.BroadcastPartner" Multiplicity="*" />
@@ -153,6 +199,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Messagerie_Artist">
+    <End Role="Artist" Type="Self.Artist" Multiplicity="1" />
+    <End Role="Messagerie" Type="Self.Messagerie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist">
+        <PropertyRef Name="Identifier" />
+      </Principal>
+      <Dependent Role="Messagerie">
+        <PropertyRef Name="IdentifierArtist" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Messagerie_Producer">
     <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
     <End Role="Messagerie" Type="Self.Messagerie" Multiplicity="*" />
@@ -162,18 +220,6 @@
       </Principal>
       <Dependent Role="Messagerie">
         <PropertyRef Name="IdentifierProducer" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Messagerie_User">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="Messagerie" Type="Self.Messagerie" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Identifier" />
-      </Principal>
-      <Dependent Role="Messagerie">
-        <PropertyRef Name="IdentifierUser" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -249,55 +295,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_User_City">
-    <End Role="City" Type="Self.City" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="City">
-        <PropertyRef Name="Identifier" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="IdentifierCity" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_Image">
-    <End Role="Image" Type="Self.Image" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Image">
-        <PropertyRef Name="Identifier" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="IdentifierImage" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserOffer_Offer">
-    <End Role="Offer" Type="Self.Offer" Multiplicity="1" />
-    <End Role="UserOffer" Type="Self.UserOffer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Offer">
-        <PropertyRef Name="Identifier" />
-      </Principal>
-      <Dependent Role="UserOffer">
-        <PropertyRef Name="IdentifierOffer" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserOffer_User">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="UserOffer" Type="Self.UserOffer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Identifier" />
-      </Principal>
-      <Dependent Role="UserOffer">
-        <PropertyRef Name="IdentifierUser" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="MegaCastingModelStoreContainer">
+    <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ArtistOffer" EntityType="Self.ArtistOffer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BroadcastPartner" EntityType="Self.BroadcastPartner" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContractType" EntityType="Self.ContractType" Schema="dbo" store:Type="Tables" />
@@ -308,8 +308,22 @@
     <EntitySet Name="Offer" EntityType="Self.Offer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pack" EntityType="Self.Pack" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="UserOffer" EntityType="Self.UserOffer" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Artist_City" Association="Self.FK_Artist_City">
+      <End Role="City" EntitySet="City" />
+      <End Role="Artist" EntitySet="Artist" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Artist_Image" Association="Self.FK_Artist_Image">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Artist" EntitySet="Artist" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArtistOffer_Artist" Association="Self.FK_ArtistOffer_Artist">
+      <End Role="Artist" EntitySet="Artist" />
+      <End Role="ArtistOffer" EntitySet="ArtistOffer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArtistOffer_Offer" Association="Self.FK_ArtistOffer_Offer">
+      <End Role="Offer" EntitySet="Offer" />
+      <End Role="ArtistOffer" EntitySet="ArtistOffer" />
+    </AssociationSet>
     <AssociationSet Name="FK_BroadcastPartner_City" Association="Self.FK_BroadcastPartner_City">
       <End Role="City" EntitySet="City" />
       <End Role="BroadcastPartner" EntitySet="BroadcastPartner" />
@@ -318,12 +332,12 @@
       <End Role="DomainJob" EntitySet="DomainJob" />
       <End Role="Job" EntitySet="Job" />
     </AssociationSet>
-    <AssociationSet Name="FK_Messagerie_Producer" Association="Self.FK_Messagerie_Producer">
-      <End Role="Producer" EntitySet="Producer" />
+    <AssociationSet Name="FK_Messagerie_Artist" Association="Self.FK_Messagerie_Artist">
+      <End Role="Artist" EntitySet="Artist" />
       <End Role="Messagerie" EntitySet="Messagerie" />
     </AssociationSet>
-    <AssociationSet Name="FK_Messagerie_User" Association="Self.FK_Messagerie_User">
-      <End Role="User" EntitySet="User" />
+    <AssociationSet Name="FK_Messagerie_Producer" Association="Self.FK_Messagerie_Producer">
+      <End Role="Producer" EntitySet="Producer" />
       <End Role="Messagerie" EntitySet="Messagerie" />
     </AssociationSet>
     <AssociationSet Name="FK_Offer_City" Association="Self.FK_Offer_City">
@@ -349,22 +363,6 @@
     <AssociationSet Name="FK_Producer_Pack" Association="Self.FK_Producer_Pack">
       <End Role="Pack" EntitySet="Pack" />
       <End Role="Producer" EntitySet="Producer" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_City" Association="Self.FK_User_City">
-      <End Role="City" EntitySet="City" />
-      <End Role="User" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_Image" Association="Self.FK_User_Image">
-      <End Role="Image" EntitySet="Image" />
-      <End Role="User" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserOffer_Offer" Association="Self.FK_UserOffer_Offer">
-      <End Role="Offer" EntitySet="Offer" />
-      <End Role="UserOffer" EntitySet="UserOffer" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserOffer_User" Association="Self.FK_UserOffer_User">
-      <End Role="User" EntitySet="User" />
-      <End Role="UserOffer" EntitySet="UserOffer" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

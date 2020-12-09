@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace MegaCastingV2.WPF.ViewModel
 {
@@ -80,41 +82,76 @@ namespace MegaCastingV2.WPF.ViewModel
         /// <summary>
         /// Permet d'ajouter un Job
         /// </summary>
-        public void AddJob()
+        public void AddJob(string text, int domainjob)
         {
-            //Vérification de validité 
-            if (!this.Entities.Jobs
-                .Any(type => type.Name == "Nouveau métier")
-                )
+            //Vérification d'existence de champ 
+            if (text.Any())
             {
-                //Ajout d'un nouveau job
-                Job job = new Job();
-                job.Name = "nouveau métier";
-                this.Jobs.Add(job);
 
-                this.UpdateJob();
-                this.SelectedJob = job;
+                    //Vérification -> Le métier existe déjà ?
+                    if (!this.Entities.Jobs.Any(type => type.Name == text))
+                    {
+                        //Demande d'ajout
+                        MessageBoxResult result = MessageBox.Show("Souhaitez-vous confirmer l'ajout", "Ajout d'un type de métier", MessageBoxButton.YesNo);
+
+                        //Ajout d'un métier
+                        if (result == MessageBoxResult.Yes)
+                        {
+
+                            Job job = new Job();
+                            job.Name = text;
+                            job.IdentifierDomainJob = domainjob;
+
+                            this.Jobs.Add(job);
+
+                            this.Entities.SaveChanges();
+                            this.SelectedJob = job;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Le métier existe déjà !");
+                    }
             }
+            else
+            {
+                MessageBox.Show("Veulliez enseigner un Nom");
+            }
+            
         }
-        /// <summary>
-        /// Permet la mise à jour des job
-        /// </summary>
-        public void UpdateJob()
-        {
-            //TODO : Vérifs
-
-            this.Entities.SaveChanges();
-        }
+        
         /// <summary>
         /// Permet la suppression des Job
         /// </summary>
         public void DeleteJob()
         {
-            //TODO : Vérifs
+            //Vérrification d'existence pour le supprimer
+            if (SelectedJob == null)
+            {
+                MessageBox.Show("Vous devez selectionner un métier pour le supprimer");
+            }
 
-            // Suppression de l'élément
-            this.Jobs.Remove(SelectedJob);
-            this.UpdateJob();
+
+            //Si il y a un métier faire ceci 
+            else if (!SelectedJob.Offers.Any())
+            {
+                //Demande de Suppression 
+                MessageBoxResult result = MessageBox.Show("Souhaitez-vous confimer la suppression", "Suppresion du métier", MessageBoxButton.YesNo);
+                //Suppression d'un métier
+                if (result == MessageBoxResult.Yes)
+                {
+
+                    // Suppression de l'élément
+                    this.Entities.Jobs.Remove(SelectedJob);
+                    this.Entities.SaveChanges();
+                    this.Jobs.Remove(SelectedJob);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vous ne pouvez pas supprimer car il existe encore au moins une offre lier à ce métier");
+            }
+
         }
         #endregion
     }
