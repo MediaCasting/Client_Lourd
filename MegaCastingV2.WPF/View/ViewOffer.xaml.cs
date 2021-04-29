@@ -36,9 +36,17 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageInsert_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
+            //Vérification de validité
+            if (ListBoxOffer.SelectedItem == null)
+            {
+                ((ViewModelOffer)this.DataContext).AddOffer(this.Name);
+            }
+            else
+            {
 
-            ((ViewModelOffer)this.DataContext).AddOffer();
+                MessageBox.Show("Impossible d'ajouter une offre à partir d'une offre existant");
+
+            }
 
         }
         /// <summary>
@@ -48,9 +56,17 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
+            //Vérification de validité
+            if (ListBoxOffer.SelectedItem != null)
+            {
+                ((ViewModelOffer)this.DataContext).DeleteOffer();
+            }
+            else
+            {
 
-            ((ViewModelOffer)this.DataContext).DeleteOffer();
+                MessageBox.Show("Veuillez selectionner une offre a supprimer.");
+
+            }
 
         }
         /// <summary>
@@ -60,9 +76,15 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
-
-            ((ViewModelOffer)this.DataContext).UpdateOffer();
+            // Vérification de validité
+            if (ListBoxOffer.SelectedItem != null)
+            {
+                ((ViewModelOffer)this.DataContext).UpdateOffer(this.Name);
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner une offre a mettre à jour.");
+            }
 
         }
         /// <summary>
@@ -72,7 +94,16 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxOffer.UnselectAll();
+            // Vérification de validité
+            if (ListBoxOffer.SelectedItem != null)
+            {
+                ListBoxOffer.UnselectAll();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner une offre a réinitialiser.");
+            }
+            
 
         }
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

@@ -18,7 +18,7 @@ namespace MegaCastingV2.WPF.ViewModel
 		public int NbrOffers => this.Entities.Offers.Count();
 		#endregion
 
-		#region
+		#region Constructors
 		
 
 		public ViewModelMain(MegaCastingEntities entities) : base(entities)

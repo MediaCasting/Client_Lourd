@@ -129,10 +129,30 @@ namespace MegaCastingV2.WPF.ViewModel
             /// <summary>
             /// Sauvegarde les modifications
             /// </summary>
-            public void UpdateProducer()
-            {
-                //TODO : Vérifs
-                this.Entities.SaveChanges();
+            public void UpdateProducer(string companyName, string firstName, string lastName, int pack)
+            { 
+                //Vérification d'existence des champ 
+                if (companyName.Any() && firstName.Any() && lastName.Any())
+                {
+                    //Demande d'ajout
+                    MessageBoxResult result = MessageBox.Show("Souhaitez-vous mettre à jour ces informations", "Mise à jour d'un producteur", MessageBoxButton.YesNo);
+                    //Ajout d'un métier
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Producer producer = new Producer();
+                        producer.CompanyName = companyName;
+                        producer.FirstName = firstName;
+                        producer.LastName = lastName;
+                        producer.IdentifierPack = pack;
+                    
+                        this.Entities.SaveChanges();
+                        this.SelectedProducer = producer;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Veulliez enseigner un Nom de compagnie");
+                }
             }
 
             /// <summary>
@@ -140,7 +160,6 @@ namespace MegaCastingV2.WPF.ViewModel
             /// </summary>
             public void DeleteProducer()
             {
-            //TODO : Vérifs
                 //Vérrification d'existence pour le supprimer
                 if (SelectedProducer == null)
                 {
@@ -169,8 +188,8 @@ namespace MegaCastingV2.WPF.ViewModel
                 }
 
             // Suppression de l'élément
-            this.Producers.Remove(SelectedProducer);
-                this.UpdateProducer();
+                this.Producers.Remove(SelectedProducer);
+                this.Entities.SaveChanges();
             }
         #endregion
 

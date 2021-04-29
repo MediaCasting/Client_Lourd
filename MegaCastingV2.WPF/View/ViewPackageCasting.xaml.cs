@@ -55,9 +55,16 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
-
-            ((ViewModelPackageCasting)this.DataContext).DeletePackageCasting();
+            // Vérification de validité
+            if (ListBoxPack.SelectedItem != null)
+            {
+                ((ViewModelPackageCasting)this.DataContext).DeletePackageCasting();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner une offre a supprimer .");
+            }
+            
 
         }
         /// <summary>
@@ -67,9 +74,16 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
-
-            ((ViewModelPackageCasting)this.DataContext).UpdatePackageCasting(this.NamePack.Text, this.OfferNumber.Text, this.Prix.Text);
+            // Vérification de validité
+            if (ListBoxPack.SelectedItem != null)
+            {
+                ((ViewModelPackageCasting)this.DataContext).UpdatePackageCasting(this.NamePack.Text, this.OfferNumber.Text, this.Prix.Text);
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner une offre a mettre à jour.");
+            }
+            
 
         }
         /// <summary>
@@ -79,9 +93,15 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
         {
-
-
-            ListBoxPack.UnselectAll();
+            // Vérification de validité
+            if (ListBoxPack.SelectedItem != null)
+            {
+                ListBoxPack.UnselectAll();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner un pack a réinitialiser.");
+            }
 
         }
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

@@ -153,6 +153,29 @@ namespace MegaCastingV2.WPF.ViewModel
             }
 
         }
+
+
+
+        /// <summary>
+        /// Sauvegarde les modifications
+        /// </summary>
+        public void UpdateJob(string text)
+        {
+            //Vérification de validité pour mettre a jour le ContractType 
+            if (SelectedJob != null &&
+                !this.Entities.Jobs.Any(type => type.Name == text))
+            {
+                Job job = new Job();
+                job.Name = text;
+
+
+                this.Entities.SaveChanges();
+            }
+            else
+            {
+                MessageBox.Show("Une erreur est survenu !");
+            }
+        }
         #endregion
     }
 }

@@ -35,7 +35,7 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageInsert_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs//Vérification de validité
+            //Vérification de validité
             if (ListBoxDomainJob.SelectedItem == null)
             {
                 ((ViewModelDomainJob)this.DataContext).AddDomainJob(this.Nom.Text);
@@ -53,9 +53,17 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
-            
+            //Vérification de validité
+            if (ListBoxDomainJob.SelectedItem != null)
+            {
+                ((ViewModelDomainJob)this.DataContext).DeleteDomainJob();
+            }
+            else
+            {
 
-            ((ViewModelDomainJob)this.DataContext).DeleteDomainJob();
+                MessageBox.Show("Veuillez selectionner un secteur d'activité a supprimer.");
+
+            }
 
         }
         /// <summary>
@@ -65,9 +73,15 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
-
-            ((ViewModelDomainJob)this.DataContext).UpdateDomainJob(this.Nom.Text);
+            //Vérification de validité
+            if (ListBoxDomainJob.SelectedItem != null)
+            {
+                ((ViewModelDomainJob)this.DataContext).UpdateDomainJob(this.Nom.Text);
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner un secteur d'activité a mettre à jour");
+            }
 
         }
         /// <summary>
@@ -77,7 +91,15 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxDomainJob.UnselectAll();
+            //Vérification de validité
+            if (ListBoxDomainJob.SelectedItem != null)
+            {
+                ListBoxDomainJob.UnselectAll();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner un secteur d'activité réinitialiser");
+            }
 
         }
 

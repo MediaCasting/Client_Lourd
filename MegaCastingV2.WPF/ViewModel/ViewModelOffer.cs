@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MegaCastingV2.WPF.ViewModel
 {
@@ -132,30 +133,60 @@ namespace MegaCastingV2.WPF.ViewModel
             /// <summary>
             /// Permet d'ajouter une Offer
             /// </summary>
-            public void AddOffer()
+            public void AddOffer(string text)
             {
-                //Vérification de validité de l'offre
-                if (!this.Entities.Offers
-                    .Any(type => type.Name == "Nouvelle offre")
+                //Vérification d'existance de champ
+                if (text.Any())
+            {
+                    //Vérification de validité de l'offre
+                    if (!this.Entities.Offers.Any(type => type.Name == text)
                     )
-                {
-                //Ajout d'une nouvelle offre
-                    Offer offer = new Offer();
-                    offer.Name = "nouvelle offre";
-                    this.Offers.Add(offer);
+                    {
+                        //Demande d'ajout
+                        MessageBoxResult result = MessageBox.Show("Souhaitez-vous confirmer l'ajout", "Ajout d'une offre", MessageBoxButton.YesNo);
 
-                    this.UpdateOffer();
-                    this.SelectedOffer = offer;
+                        //Ajout d'un nouveau contractType
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            //Ajout d'une nouvelle offre
+                            Offer offer = new Offer();
+                            offer.Name = text;
+                            this.Offers.Add(offer);
+
+                            this.Entities.SaveChanges();
+                            this.SelectedOffer = offer;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("L'offre existe déjà !");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Veuillez renseigner un Nom");
                 }
             }
 
             /// <summary>
             /// Sauvegarde les modifications
             /// </summary>
-            public void UpdateOffer()
+            public void UpdateOffer(string text)
             {
-                //TODO : Vérifs
-                this.Entities.SaveChanges();
+                // Vérification de validité pour mettre a jour le ContractType
+                if (SelectedOffer != null &&
+                    !this.Entities.Offers.Any(type => type.Name == text))
+                {
+                    Offer offer = new Offer();
+                    offer.Name = text;
+
+                    this.Entities.SaveChanges();
+
+                }
+                else
+                {
+                    MessageBox.Show("Aucune modification efféctuée");
+                }
             }
 
             /// <summary>
@@ -163,13 +194,36 @@ namespace MegaCastingV2.WPF.ViewModel
             /// </summary>
             public void DeleteOffer()
             {
-                //TODO : Vérifs
-                // Suppression de l'élément
-                this.Offers.Remove(SelectedOffer);
-                this.UpdateOffer();
+                //Vérrification d'existence pour le supprimer
+                if (SelectedOffer == null)
+                {
+                    MessageBox.Show("Vous devez selectionner un secteur d'activité pour le supprimer");
+                }
+
+                //Si il y a un Secteur d'activité faire ceci
+                else if (!SelectedOffer.ArtistOffers.Any())
+                {
+                    //Demande de Suppression 
+                    MessageBoxResult result = MessageBox.Show("Souhaitez-vous confimer la suppression", "Suppresion l'offre", MessageBoxButton.YesNo);
+
+                    //Suppression d'un ContractType
+                    if (result == MessageBoxResult.Yes)
+                    {
+
+                        // Suppression de l'élément
+                        this.Entities.Offers.Remove(SelectedOffer);
+                        this.Entities.SaveChanges();
+                        this.Offers.Remove(SelectedOffer);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vous ne pouvez pas supprimer car il existe encore au moins une offre lier à ce secteur d'activité !");
+                }
+
             }
 
-            
+
         #endregion
     }
 }

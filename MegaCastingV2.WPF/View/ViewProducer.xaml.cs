@@ -35,9 +35,14 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageInsert_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
-
-            ((ViewModelProducer)this.DataContext).AddProducer(this.CompanyName.Text, this.FirstName.Text, this.LastName.Text, this.ComboBoxPack.SelectedIndex);
+            if (ListBoxProducer.SelectedItem == null)
+            {
+                ((ViewModelProducer)this.DataContext).AddProducer(this.CompanyName.Text, this.FirstName.Text, this.LastName.Text, this.ComboBoxPack.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Impossible d'ajouter un secteur d'activité à partir d'un secteur d'activité existant");
+            }
 
         }
 
@@ -48,8 +53,50 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
-            ((ViewModelProducer)this.DataContext).DeleteProducer();
+            // Vérification de validité
+            if (ListBoxProducer.SelectedItem != null)
+            {
+                ((ViewModelProducer)this.DataContext).DeleteProducer();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner un producteur a réinitialiser.");
+            }
+        }
+        /// <summary>
+        /// Affecte la fonction UpdateProducer au bouton Update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            // Vérification de validité
+            if (ListBoxProducer.SelectedItem != null)
+            {
+                ((ViewModelProducer)this.DataContext).UpdateProducer(this.CompanyName.Text, this.FirstName.Text, this.LastName.Text, this.ComboBoxPack.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner un producteur a mettre à jour.");
+            }
+
+        }
+        /// <summary>
+        /// Affecte la fonction UnselectAll au bouton Reset
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxProducer.SelectedItem != null)
+            {
+                ListBoxProducer.UnselectAll();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner un producteur a mettre à jour.");
+            }
+            
         }
     }
 }

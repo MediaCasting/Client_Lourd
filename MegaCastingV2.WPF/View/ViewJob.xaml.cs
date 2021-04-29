@@ -53,10 +53,34 @@ namespace MegaCastingV2.WPF.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
+        {   
+            //Vérification de validité
+            if (ListBoxJob.SelectedItem != null)
+            {
+                ((ViewModelJob)this.DataContext).DeleteJob();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner un travail a supprimer.");
+            }
+        }
+        /// <summary>
+        /// Affecte la fonction UpdateJob au bouton update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
+            //Vérification de validité
+            if (ListBoxJob.SelectedItem != null)
+            {
+                ((ViewModelJob)this.DataContext).UpdateJob(this.Name);
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner un travail a mettre à jour");
+            }
 
-            ((ViewModelJob)this.DataContext).DeleteJob();
         }
         /// <summary>
         /// Affecte la fonction UnselectAll au bouton Reset
@@ -65,7 +89,17 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxJob.UnselectAll();
+            //Vérification de validité
+            if (ListBoxJob.SelectedItem != null)
+            {
+                ListBoxJob.UnselectAll();
+            }
+            else
+            {
+
+                MessageBox.Show("Veuillez selectionner un travail a supprimer.");
+
+            }
         }
     }
 }

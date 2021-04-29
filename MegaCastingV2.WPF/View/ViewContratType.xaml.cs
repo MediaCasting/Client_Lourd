@@ -45,7 +45,7 @@ namespace MegaCastingV2.WPF.View
             else
             {
 
-                MessageBox.Show("Impossible d'ajouter un type de contrat à partir d'un contrat existant");
+                MessageBox.Show("Impossible d'ajouter un type de contrat à partir d'un contrat existant.");
 
             }
         }
@@ -57,9 +57,17 @@ namespace MegaCastingV2.WPF.View
         /// <param name="e"></param>
         private void ButtonManageDelete_Click(object sender, RoutedEventArgs e)
         {
-            //TODO : Vérifs
+            //Vérification de validité
+            if (ListBoxContractType.SelectedItem != null)
+            {
+                ((ViewModelContractType)this.DataContext).DeleteContractType();
+            }
+            else
+            {
 
-            ((ViewModelContractType)this.DataContext).DeleteContractType();
+                MessageBox.Show("Veuillez selectionner un type de contrat a supprimer.");
+
+            }
         }
 
         /// <summary>
@@ -68,10 +76,18 @@ namespace MegaCastingV2.WPF.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonManageUpdate_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO : Vérifs
+        {   
+            //Vérification de validité
+            if (ListBoxContractType.SelectedItem != null)
+            {
+                ((ViewModelContractType)this.DataContext).UpdateContractType(this.Nom.Text);
+            }
+            else
+            {
 
-            ((ViewModelContractType)this.DataContext).UpdateContractType(this.Nom.Text);
+                MessageBox.Show("Veuillez selectionner un type de contrat a mettre à jour");
+
+            }
         }
         /// <summary>
         /// Affecte la fonction UnselectAll au bouton Reset
@@ -79,9 +95,15 @@ namespace MegaCastingV2.WPF.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonManageReset_Click(object sender, RoutedEventArgs e)
-        {
-            ListBoxContractType.UnselectAll();
+        {//Vérification de validité
+            if (ListBoxContractType.SelectedItem != null)
+            {
+                ListBoxContractType.UnselectAll();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez selectionner un type de contrat a réinitialiser");
+            }
         }
-
     }
 }
